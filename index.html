@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarTrac Innovations - Your Farm, Your Power.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* The scroll-padding-top ensures the fixed header doesn't cover the section title */
+        html {
+            scroll-padding-top: 80px; 
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://placehold.co/1200x800/228B22/FFFFFF?text=Modern+Indian+Farm');
+            background-size: cover;
+            background-position: center;
+        }
+        .hindi-text, body.lang-hi {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+        }
+        .hindi-text {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-green-700">SolarTrac</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#kits" class="nav-link text-gray-600 hover:text-green-700" data-key="navKits">Our Kits</a>
+                <a href="#how-it-works" class="nav-link text-gray-600 hover:text-green-700" data-key="navHowItWorks">How It Works</a>
+                <a href="#impact" class="nav-link text-gray-600 hover:text-green-700" data-key="navImpact">Our Impact</a>
+                <a href="#contact" class="nav-link text-gray-600 hover:text-green-700" data-key="navContact">Contact</a>
+                <button id="language-switcher-desktop" class="text-green-600 font-semibold hover:text-green-800">हिंदी</button>
+            </div>
+            <a href="#contact" class="nav-link hidden md:inline-block bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300" data-key="navGetStarted">Get Started</a>
+            <button id="mobile-menu-button" class="md:hidden text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#kits" class="nav-link mobile-menu-link block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100" data-key="navKits">Our Kits</a>
+            <a href="#how-it-works" class="nav-link mobile-menu-link block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100" data-key="navHowItWorks">How It Works</a>
+            <a href="#impact" class="nav-link mobile-menu-link block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100" data-key="navImpact">Our Impact</a>
+            <a href="#contact" class="nav-link mobile-menu-link block px-6 py-2 text-sm text-gray-600 hover:bg-gray-100" data-key="navContact">Contact</a>
+            <div class="px-6 py-2">
+                <button id="language-switcher-mobile" class="w-full text-left text-green-600 font-semibold hover:text-green-800">हिंदी</button>
+            </div>
+            <a href="#contact" class="nav-link mobile-menu-link block m-4 bg-green-600 text-white font-semibold py-2 px-4 rounded-lg text-center" data-key="navGetStarted">Get Started</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-bg text-white pt-32 pb-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4" data-key="heroTitle">Your Farm, Your Power.</h1>
+            <p class="text-xl md:text-2xl hindi-text mb-8" data-key="heroSubtitle">आपका खेत, आपकी शक्ति।</p>
+            <p class="max-w-3xl mx-auto text-lg md:text-xl mb-12" data-key="heroDescription">We are revolutionizing Indian agriculture by converting your existing diesel tractor into a powerful, profitable solar-hybrid machine. Say goodbye to diesel dependency.</p>
+            <a href="#how-it-works" class="nav-link bg-white text-green-700 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition duration-300" data-key="heroButton">Discover How</a>
+        </div>
+    </section>
+
+    <!-- The Problem Section -->
+    <section id="problem" class="py-20 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-2" data-key="problemTitle">The Unseen Crisis on Our Farms</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto" data-key="problemDescription">Indian farmers are trapped in a cycle of rising expenses, with their most essential tool being their biggest liability.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                    <svg class="h-12 w-12 text-green-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    <h3 class="text-xl font-semibold mb-2" data-key="problemCard1Title">Unsustainable Fuel Costs</h3>
+                    <p class="text-gray-600" data-key="problemCard1Text">Over <strong class="font-bold">₹1,80,000</strong> spent annually on diesel for a mid-range tractor, subject to volatile global prices.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                    <svg class="h-12 w-12 text-green-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0 3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    <h3 class="text-xl font-semibold mb-2" data-key="problemCard2Title">High Maintenance Burden</h3>
+                    <p class="text-gray-600" data-key="problemCard2Text"><strong class="font-bold">₹25,000 - ₹40,000</strong> per year in costly diesel engine upkeep, including oil, filters, and labor.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                    <svg class="h-12 w-12 text-green-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <h3 class="text-xl font-semibold mb-2" data-key="problemCard3Title">Energy Insecurity</h3>
+                    <p class="text-gray-600" data-key="problemCard3Text">Frequent rural power cuts impact both farm operations and home life, limiting productivity and comfort.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Kits Section -->
+    <section id="kits" class="py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-2" data-key="kitsTitle">A Solar-Hybrid Upgrade for Every Tractor</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto" data-key="kitsDescription">We offer three distinct, optimized kits to provide a perfectly tailored solution for every major tractor segment in India.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Ujjwal Kit -->
+                <div class="border border-gray-200 rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-green-700 mb-2">SolarTrac Ujjwal</h3>
+                    <p class="text-gray-500 font-semibold mb-4" data-key="ujjwalTagline">The Bright Start</p>
+                    <p class="bg-green-100 text-green-800 font-bold py-1 px-3 rounded-full inline-block mb-6" data-key="ujjwalHP">For 15-25 HP Tractors</p>
+                    <p class="text-gray-600" data-key="ujjwalDescription">Our high-volume, entry-level kit designed for maximum affordability and efficiency on small farms.</p>
+                </div>
+                <!-- Jyoti Kit -->
+                <div class="border-2 border-green-600 rounded-lg p-8 shadow-2xl relative">
+                    <span class="absolute top-0 right-0 -mt-3 -mr-3 bg-green-600 text-white text-xs font-bold uppercase py-1 px-3 rounded-full" data-key="mostPopular">Most Popular</span>
+                    <h3 class="text-2xl font-bold text-green-700 mb-2">SolarTrac Jyoti</h3>
+                    <p class="text-gray-500 font-semibold mb-4" data-key="jyotiTagline">The Core Flame</p>
+                    <p class="bg-green-100 text-green-800 font-bold py-1 px-3 rounded-full inline-block mb-6" data-key="jyotiHP">For 25-40 HP Tractors</p>
+                    <p class="text-gray-600" data-key="jyotiDescription">Our flagship model with the best balance of power, range, and value for the mid-range market.</p>
+                </div>
+                <!-- Divya Kit -->
+                <div class="border border-gray-200 rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-green-700 mb-2">SolarTrac Divya</h3>
+                    <p class="text-gray-500 font-semibold mb-4" data-key="divyaTagline">The Divine Light</p>
+                    <p class="bg-green-100 text-green-800 font-bold py-1 px-3 rounded-full inline-block mb-6" data-key="divyaHP">For 40-55+ HP Tractors</p>
+                    <p class="text-gray-600" data-key="divyaDescription">Our premium kit for maximum power reinforcement, extended range, and demanding commercial use.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-2" data-key="howItWorksTitle">The "SolarTrac Smart Start" Plan</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto" data-key="howItWorksDescription">We've eliminated the primary barrier of high upfront cost. Getting started is simple, affordable, and risk-free.</p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                <!-- Step 1 -->
+                <div class="text-center max-w-xs">
+                    <div class="bg-green-600 text-white rounded-full h-16 w-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+                    <h3 class="text-xl font-semibold mb-2" data-key="step1Title">Low Booking Fee</h3>
+                    <p class="text-gray-600" data-key="step1Text">Start your journey to energy independence for a small, symbolic booking fee, starting at just <strong class="font-bold">₹15,000.</strong></p>
+                </div>
+                 <div class="hidden md:block text-gray-300 text-4xl font-light">→</div>
+                 <div class="md:hidden text-gray-300 text-4xl font-light">↓</div>
+                <!-- Step 2 -->
+                <div class="text-center max-w-xs">
+                     <div class="bg-green-600 text-white rounded-full h-16 w-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+                    <h3 class="text-xl font-semibold mb-2" data-key="step2Title">Instant Agri-Loan</h3>
+                    <p class="text-gray-600" data-key="step2Text">We facilitate an instant loan for the remaining hardware cost with our partner banks. <strong class="font-bold">You pay nothing more upfront.</strong></p>
+                </div>
+                 <div class="hidden md:block text-gray-300 text-4xl font-light">→</div>
+                 <div class="md:hidden text-gray-300 text-4xl font-light">↓</div>
+                <!-- Step 3 -->
+                <div class="text-center max-w-xs">
+                     <div class="bg-green-600 text-white rounded-full h-16 w-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+                    <h3 class="text-xl font-semibold mb-2" data-key="step3Title">Pay After You Earn</h3>
+                    <p class="text-gray-600" data-key="step3Text">Pay one low annual fee for the battery service (<strong class="font-bold">BaaS</strong>), split into two simple installments <strong class="font-bold">after your harvests.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financial ROI Section -->
+    <section id="roi" class="py-20">
+         <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-2" data-key="roiTitle">A Clear Financial Victory</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto" data-key="roiDescription">Our model isn't an expense; it's a profit-generating investment from Year 1. Here’s the math for a farmer with our Jyoti kit.</p>
+            <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="p-8 bg-red-50">
+                        <h3 class="text-2xl font-bold text-red-700 mb-4" data-key="beforeTitle">Before SolarTrac</h3>
+                        <p class="text-4xl font-extrabold text-red-600 mb-2">~₹2,05,000</p>
+                        <p class="text-gray-600 font-medium" data-key="totalAnnualCost">Total Annual Running Cost</p>
+                        <ul class="text-left mt-6 space-y-2 text-gray-700">
+                           <li class="flex items-center" data-key="beforePoint1"><svg class="h-5 w-5 text-red-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>High Diesel Costs</li>
+                           <li class="flex items-center" data-key="beforePoint2"><svg class="h-5 w-5 text-red-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>Costly Maintenance</li>
+                        </ul>
+                    </div>
+                    <div class="p-8 bg-green-50 border-t md:border-t-0 md:border-l border-gray-200">
+                        <h3 class="text-2xl font-bold text-green-700 mb-4" data-key="afterTitle">After SolarTrac</h3>
+                         <p class="text-4xl font-extrabold text-green-600 mb-2">~₹1,27,000</p>
+                        <p class="text-gray-600 font-medium" data-key="totalAnnualCost">Total Annual Running Cost</p>
+                         <ul class="text-left mt-6 space-y-2 text-gray-700">
+                           <li class="flex items-center" data-key="afterPoint1"><svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Includes Low BaaS Fee</li>
+                           <li class="flex items-center" data-key="afterPoint2"><svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Minimal Diesel & Maintenance</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="bg-green-700 text-white p-6">
+                    <p class="text-xl font-semibold" data-key="netGain">Net Annual Gain (Pure Profit) for the Farmer:</p>
+                    <p class="text-4xl font-extrabold mt-2">+ ₹78,000</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- National Impact Section -->
+    <section id="impact" class="py-20 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-2" data-key="impactTitle">Aligning with India's Vision</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto" data-key="impactDescription">SolarTrac is a grassroots implementation of our nation's most important missions, building a self-reliant and sustainable future.</p>
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="text-center">
+                    <img src="https://placehold.co/150x80/EFEFEF/333333?text=Aatmanirbhar+Bharat" alt="Aatmanirbhar Bharat" class="mx-auto mb-4 rounded">
+                    <h3 class="text-xl font-semibold mb-2" data-key="impact1Title">Aatmanirbhar Bharat</h3>
+                    <p class="text-gray-600" data-key="impact1Text">We make farmers energy self-reliant (*Urja Aatmanirbhar*), freeing them from imported diesel and building a domestic EV supply chain.</p>
+                </div>
+                <div class="text-center">
+                     <img src="https://placehold.co/150x80/EFEFEF/333333?text=PM-KUSUM" alt="PM-KUSUM Scheme" class="mx-auto mb-4 rounded">
+                    <h3 class="text-xl font-semibold mb-2" data-key="impact2Title">PM-KUSUM Scheme</h3>
+                    <p class="text-gray-600" data-key="impact2Text">Our model directly supports the scheme's goals of solarizing agriculture, and our "Energy Hub" can power the very pumps the scheme promotes.</p>
+                </div>
+                <div class="text-center">
+                     <img src="https://placehold.co/150x80/EFEFEF/333333?text=Doubling+Income" alt="Doubling Farmer Income" class="mx-auto mb-4 rounded">
+                    <h3 class="text-xl font-semibold mb-2" data-key="impact3Title">Doubling Farmer Income</h3>
+                    <p class="text-gray-600" data-key="impact3Text">The significant net annual gain is a direct, tangible, and substantial step towards this crucial national goal for every farmer who joins our platform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-green-800 text-white">
+        <div class="container mx-auto px-6 text-center">
+             <h2 class="text-3xl font-bold mb-2" data-key="contactTitle">Ready to Make the Switch?</h2>
+            <p class="mb-8 max-w-2xl mx-auto" data-key="contactDescription">Take the first step towards a more profitable and sustainable future. Contact us today to schedule a free demo in your village.</p>
+            <div class="max-w-xl mx-auto">
+                <form action="#" method="POST" class="grid grid-cols-1 gap-y-6">
+                    <input type="text" name="name" data-key-placeholder="formName" placeholder="Your Name" required class="bg-green-700 border border-green-600 rounded-lg py-3 px-4 placeholder-green-300 focus:outline-none focus:ring-2 focus:ring-white">
+                    <input type="text" name="phone" data-key-placeholder="formPhone" placeholder="Your Phone Number" required class="bg-green-700 border border-green-600 rounded-lg py-3 px-4 placeholder-green-300 focus:outline-none focus:ring-2 focus:ring-white">
+                    <input type="text" name="village" data-key-placeholder="formVillage" placeholder="Your Village & District" required class="bg-green-700 border border-green-600 rounded-lg py-3 px-4 placeholder-green-300 focus:outline-none focus:ring-2 focus:ring-white">
+                    <button type="submit" class="bg-white text-green-700 font-bold py-3 px-8 rounded-lg text-lg hover:bg-gray-200 w-full transition duration-300" data-key="formButton">Request a Demo</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-lg font-bold">SolarTrac Innovations</p>
+                <p class="mt-4 md:mt-0 text-sm text-gray-400" data-key="footerRights">&copy; 2025 SolarTrac Innovations. All rights reserved.</p>
+                <div class="flex mt-4 md:mt-0 space-x-6">
+                    <!-- Placeholder for social icons -->
+                    <a href="#" class="text-gray-400 hover:text-white">Facebook</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
+                    <a href="#" class="text-gray-400 hover:text-white">YouTube</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- TRANSLATION LOGIC ---
+        const translations = {
+            en: {
+                // Header
+                navKits: "Our Kits",
+                navHowItWorks: "How It Works",
+                navImpact: "Our Impact",
+                navContact: "Contact",
+                navGetStarted: "Get Started",
+                langButton: "हिंदी",
+                // Hero
+                heroTitle: "Your Farm, Your Power.",
+                heroSubtitle: "आपका खेत, आपकी शक्ति।",
+                heroDescription: "We are revolutionizing Indian agriculture by converting your existing diesel tractor into a powerful, profitable solar-hybrid machine. Say goodbye to diesel dependency.",
+                heroButton: "Discover How",
+                // Problem
+                problemTitle: "The Unseen Crisis on Our Farms",
+                problemDescription: "Indian farmers are trapped in a cycle of rising expenses, with their most essential tool being their biggest liability.",
+                problemCard1Title: "Unsustainable Fuel Costs",
+                problemCard1Text: "Over <strong class=\"font-bold\">₹1,80,000</strong> spent annually on diesel for a mid-range tractor, subject to volatile global prices.",
+                problemCard2Title: "High Maintenance Burden",
+                problemCard2Text: "<strong class=\"font-bold\">₹25,000 - ₹40,000</strong> per year in costly diesel engine upkeep, including oil, filters, and labor.",
+                problemCard3Title: "Energy Insecurity",
+                problemCard3Text: "Frequent rural power cuts impact both farm operations and home life, limiting productivity and comfort.",
+                 // Kits
+                kitsTitle: "A Solar-Hybrid Upgrade for Every Tractor",
+                kitsDescription: "We offer three distinct, optimized kits to provide a perfectly tailored solution for every major tractor segment in India.",
+                ujjwalTagline: "The Bright Start",
+                ujjwalHP: "For 15-25 HP Tractors",
+                ujjwalDescription: "Our high-volume, entry-level kit designed for maximum affordability and efficiency on small farms.",
+                mostPopular: "Most Popular",
+                jyotiTagline: "The Core Flame",
+                jyotiHP: "For 25-40 HP Tractors",
+                jyotiDescription: "Our flagship model with the best balance of power, range, and value for the mid-range market.",
+                divyaTagline: "The Divine Light",
+                divyaHP: "For 40-55+ HP Tractors",
+                divyaDescription: "Our premium kit for maximum power reinforcement, extended range, and demanding commercial use.",
+                // How It Works
+                howItWorksTitle: "The \"SolarTrac Smart Start\" Plan",
+                howItWorksDescription: "We've eliminated the primary barrier of high upfront cost. Getting started is simple, affordable, and risk-free.",
+                step1Title: "Low Booking Fee",
+                step1Text: "Start your journey to energy independence for a small, symbolic booking fee, starting at just <strong class=\"font-bold\">₹15,000.</strong>",
+                step2Title: "Instant Agri-Loan",
+                step2Text: "We facilitate an instant loan for the remaining hardware cost with our partner banks. <strong class=\"font-bold\">You pay nothing more upfront.</strong>",
+                step3Title: "Pay After You Earn",
+                step3Text: "Pay one low annual fee for the battery service (<strong class=\"font-bold\">BaaS</strong>), split into two simple installments <strong class=\"font-bold\">after your harvests.</strong>",
+                // ROI
+                roiTitle: "A Clear Financial Victory",
+                roiDescription: "Our model isn't an expense; it's a profit-generating investment from Year 1. Here’s the math for a farmer with our Jyoti kit.",
+                beforeTitle: "Before SolarTrac",
+                totalAnnualCost: "Total Annual Running Cost",
+                beforePoint1: "<svg class=\"h-5 w-5 text-red-500 mr-2 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z\" clip-rule=\"evenodd\" /></svg>High Diesel Costs",
+                beforePoint2: "<svg class=\"h-5 w-5 text-red-500 mr-2 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z\" clip-rule=\"evenodd\" /></svg>Costly Maintenance",
+                afterTitle: "After SolarTrac",
+                afterPoint1: "<svg class=\"h-5 w-5 text-green-500 mr-2 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\" clip-rule=\"evenodd\" /></svg>Includes Low BaaS Fee",
+                afterPoint2: "<svg class=\"h-5 w-5 text-green-500 mr-2 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\" clip-rule=\"evenodd\" /></svg>Minimal Diesel & Maintenance",
+                netGain: "Net Annual Gain (Pure Profit) for the Farmer:",
+                // Impact
+                impactTitle: "Aligning with India's Vision",
+                impactDescription: "SolarTrac is a grassroots implementation of our nation's most important missions, building a self-reliant and sustainable future.",
+                impact1Title: "Aatmanirbhar Bharat",
+                impact1Text: "We make farmers energy self-reliant (*Urja Aatmanirbhar*), freeing them from imported diesel and building a domestic EV supply chain.",
+                impact2Title: "PM-KUSUM Scheme",
+                impact2Text: "Our model directly supports the scheme's goals of solarizing agriculture, and our \"Energy Hub\" can power the very pumps the scheme promotes.",
+                impact3Title: "Doubling Farmer Income",
+                impact3Text: "The significant net annual gain is a direct, tangible, and substantial step towards this crucial national goal for every farmer who joins our platform.",
+                // Contact
+                contactTitle: "Ready to Make the Switch?",
+                contactDescription: "Take the first step towards a more profitable and sustainable future. Contact us today to schedule a free demo in your village.",
+                formName: "Your Name",
+                formPhone: "Your Phone Number",
+                formVillage: "Your Village & District",
+                formButton: "Request a Demo",
+                // Footer
+                footerRights: "&copy; 2025 SolarTrac Innovations. All rights reserved."
+            },
+            hi: {
+                // Header
+                navKits: "हमारी किट्स",
+                navHowItWorks: "यह कैसे काम करता है",
+                navImpact: "हमारा प्रभाव",
+                navContact: "संपर्क करें",
+                navGetStarted: "शुरू करें",
+                langButton: "English",
+                // Hero
+                heroTitle: "आपका खेत, आपकी शक्ति।",
+                heroSubtitle: "Your Farm, Your Power.",
+                heroDescription: "हम आपकी मौजूदा डीजल ट्रैक्टर को एक शक्तिशाली, लाभदायक सोलर-हाइब्रिड मशीन में बदलकर भारतीय कृषि में क्रांति ला रहे हैं। डीजल पर निर्भरता को अलविदा कहें।",
+                heroButton: "जानें कैसे",
+                // Problem
+                problemTitle: "हमारे खेतों का अनदेखा संकट",
+                problemDescription: "भारतीय किसान बढ़ते खर्चों के दुष्चक्र में फंसे हुए हैं, और उनका सबसे आवश्यक उपकरण ही उनकी सबसे बड़ी देनदारी है।",
+                problemCard1Title: "अस्थिर ईंधन लागत",
+                problemCard1Text: "एक मध्यम श्रेणी के ट्रैक्टर पर सालाना <strong class=\"font-bold\">₹1,80,000</strong> से अधिक डीजल पर खर्च होता है, जो अस्थिर वैश्विक कीमतों के अधीन है।",
+                problemCard2Title: "उच्च रखरखाव का बोझ",
+                problemCard2Text: "<strong class=\"font-bold\">₹25,000 - ₹40,000</strong> प्रति वर्ष महंगे डीजल इंजन के रखरखाव पर खर्च होता है, जिसमें तेल, फिल्टर और मजदूरी शामिल है।",
+                problemCard3Title: "ऊर्जा असुरक्षा",
+                problemCard3Text: "ग्रामीण क्षेत्रों में बार-बार बिजली कटौती खेत के संचालन और घरेलू जीवन दोनों को प्रभावित करती है, जिससे उत्पादकता और आराम सीमित हो जाता है।",
+                 // Kits
+                kitsTitle: "हर ट्रैक्टर के लिए एक सोलर-हाइब्रिड अपग्रेड",
+                kitsDescription: "हम भारत में हर प्रमुख ट्रैक्टर सेगमेंट के लिए एक पूरी तरह से अनुकूलित समाधान प्रदान करने के लिए तीन अलग-अलग, अनुकूलित किट प्रदान करते हैं।",
+                ujjwalTagline: "उज्ज्वल शुरुआत",
+                ujjwalHP: "15-25 HP ट्रैक्टरों के लिए",
+                ujjwalDescription: "छोटे खेतों पर अधिकतम सामर्थ्य और दक्षता के लिए डिज़ाइन की गई हमारी उच्च-मात्रा, प्रवेश-स्तर की किट।",
+                mostPopular: "सबसे लोकप्रिय",
+                jyotiTagline: "मुख्य ज्योति",
+                jyotiHP: "25-40 HP ट्रैक्टरों के लिए",
+                jyotiDescription: "मध्य-श्रेणी के बाजार के लिए शक्ति, रेंज और मूल्य का सबसे अच्छा संतुलन वाला हमारा प्रमुख मॉडल।",
+                divyaTagline: "दिव्य प्रकाश",
+                divyaHP: "40-55+ HP ट्रैक्टरों के लिए",
+                divyaDescription: "अधिकतम शक्ति सुदृढीकरण, विस्तारित रेंज और मांग वाले व्यावसायिक उपयोग के लिए हमारी प्रीमियम किट।",
+                // How It Works
+                howItWorksTitle: "\"सोलारट्रैक स्मार्ट स्टार्ट\" योजना",
+                howItWorksDescription: "हमने उच्च अग्रिम लागत की प्राथमिक बाधा को समाप्त कर दिया है। शुरुआत करना सरल, किफायती और जोखिम-मुक्त है।",
+                step1Title: "कम बुकिंग शुल्क",
+                step1Text: "ऊर्जा स्वतंत्रता की अपनी यात्रा केवल <strong class=\"font-bold\">₹15,000</strong> से शुरू होने वाले एक छोटे, प्रतीकात्मक बुकिंग शुल्क के साथ शुरू करें।",
+                step2Title: "तुरंत कृषि-ऋण",
+                step2Text: "हम अपने साझेदार बैंकों के साथ शेष हार्डवेयर लागत के लिए तत्काल ऋण की सुविधा प्रदान करते हैं। <strong class=\"font-bold\">आपको आगे कुछ भी भुगतान नहीं करना है।</strong>",
+                step3Title: "कमाई के बाद भुगतान करें",
+                step3Text: "बैटरी सेवा (<strong class=\"font-bold\">BaaS</strong>) के लिए एक कम वार्षिक शुल्क का भुगतान करें, जो <strong class=\"font-bold\">आपकी फसल के बाद</strong> दो सरल किस्तों में विभाजित है।",
+                // ROI
+                roiTitle: "एक स्पष्ट वित्तीय विजय",
+                roiDescription: "हमारा मॉडल कोई खर्च नहीं है; यह पहले साल से ही लाभ कमाने वाला निवेश है। यहां हमारी ज्योति किट वाले किसान के लिए गणित है।",
+                beforeTitle: "सोलारट्रैक से पहले",
+                totalAnnualCost: "कुल वार्षिक संचालन लागत",
+                beforePoint1: "<svg class=\"h-5 w-5 text-red-500 mr-2 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z\" clip-rule=\"evenodd\" /></svg>उच्च डीजल लागत",
+                beforePoint2: "<svg class=\"h-5 w-5 text-red-500 mr-2 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z\" clip-rule=\"evenodd\" /></svg>महंगा रखरखाव",
+                afterTitle: "सोलारट्रैक के बाद",
+                afterPoint1: "<svg class=\"h-5 w-5 text-green-500 mr-2 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\" clip-rule=\"evenodd\" /></svg>कम BaaS शुल्क शामिल है",
+                afterPoint2: "<svg class=\"h-5 w-5 text-green-500 mr-2 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\" clip-rule=\"evenodd\" /></svg>न्यूनतम डीजल और रखरखाव",
+                netGain: "किसान के लिए शुद्ध वार्षिक लाभ (शुद्ध लाभ):",
+                // Impact
+                impactTitle: "भारत की दृष्टि के साथ संरेखण",
+                impactDescription: "सोलारट्रैक हमारे राष्ट्र के सबसे महत्वपूर्ण मिशनों का एक जमीनी स्तर पर कार्यान्वयन है, जो एक आत्मनिर्भर और टिकाऊ भविष्य का निर्माण करता है।",
+                impact1Title: "आत्मनिर्भर भारत",
+                impact1Text: "हम किसानों को ऊर्जा आत्मनिर्भर बनाते हैं, उन्हें आयातित डीजल से मुक्त करते हैं और एक घरेलू ईवी आपूर्ति श्रृंखला का निर्माण करते हैं।",
+                impact2Title: "पीएम-कुसुम योजना",
+                impact2Text: "हमारा मॉडल सीधे तौर पर कृषि को सोलराइज़ करने के योजना के लक्ष्यों का समर्थन करता है, और हमारा \"ऊर्जा हब\" उन्हीं पंपों को बिजली दे सकता है जिन्हें योजना बढ़ावा देती है।",
+                impact3Title: "किसानों की आय दोगुनी करना",
+                impact3Text: "महत्वपूर्ण शुद्ध वार्षिक लाभ हमारे मंच से जुड़ने वाले प्रत्येक किसान के लिए इस महत्वपूर्ण राष्ट्रीय लक्ष्य की दिशा में एक सीधा, ठोस और पर्याप्त कदम है।",
+                // Contact
+                contactTitle: "क्या आप बदलाव के लिए तैयार हैं?",
+                contactDescription: "एक अधिक लाभदायक और टिकाऊ भविष्य की ओर पहला कदम बढ़ाएं। अपने गांव में एक मुफ्त डेमो शेड्यूल करने के लिए आज ही हमसे संपर्क करें।",
+                formName: "आपका नाम",
+                formPhone: "आपका फ़ोन नंबर",
+                formVillage: "आपका गांव और जिला",
+                formButton: "डेमो का अनुरोध करें",
+                // Footer
+                footerRights: "&copy; 2025 सोलारट्रैक इनोवेशन। सर्वाधिकार सुरक्षित।"
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        const languageSwitcherDesktop = document.getElementById('language-switcher-desktop');
+        const languageSwitcherMobile = document.getElementById('language-switcher-mobile');
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.lang = lang;
+            document.body.className = `bg-gray-50 text-gray-800 lang-${lang}`; // Set class on body for font switching
+
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+             document.querySelectorAll('[data-key-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-key-placeholder');
+                if (translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            languageSwitcherDesktop.textContent = translations[lang].langButton;
+            languageSwitcherMobile.textContent = translations[lang].langButton;
+        }
+
+        languageSwitcherDesktop.addEventListener('click', () => {
+            const newLang = currentLanguage === 'en' ? 'hi' : 'en';
+            changeLanguage(newLang);
+        });
+        languageSwitcherMobile.addEventListener('click', () => {
+            const newLang = currentLanguage === 'en' ? 'hi' : 'en';
+            changeLanguage(newLang);
+        });
+
+
+        // --- MOBILE MENU LOGIC ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // --- ROBUST SMOOTH SCROLL LOGIC ---
+        document.querySelectorAll('a.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Close the mobile menu if it's open
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+
