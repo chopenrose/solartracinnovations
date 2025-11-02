@@ -1,566 +1,165 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SolarTrac Innovations - The Future of Farming</title>
-    <!-- 1. Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 2. Chart.js for interactive charts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- 3. Custom Styling & Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Define custom theme based on the PPT */
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000; /* Black background from PPT */
-            color: #FFFFFF; /* White text from PPT */
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-        
-        /* Define custom colors from the PPT */
-        .text-theme-green { color: #84cc16; } /* Brighter green for titles */
-        .bg-theme-green { background-color: #84cc16; }
-        .border-theme-green { border-color: #84cc16; }
-
-        .text-theme-yellow { color: #facc15; } /* Yellow from charts */
-        .bg-theme-yellow { background-color: #facc15; }
-        
-        .text-theme-red { color: #ef4444; } /* Red/Orange from charts */
-        .bg-theme-red { background-color: #ef4444; }
-
-        .text-theme-orange { color: #f97316; }
-        .bg-theme-orange { background-color: #f97316; }
-
-        .bg-theme-card { background-color: #1a1a1a; } /* Dark card background */
-        
-        /* Chart container styling */
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin: 1rem auto;
-            height: 40vh; /* Responsive height */
-            max-height: 400px;
-        }
-
-        /* Navigation Button Styling */
-        .nav-btn {
-             padding: 0.5rem 1rem;
-             border-radius: 0.375rem; /* rounded-md */
-             background-color: #333;
-             color: #ccc;
-             font-weight: 600;
-             transition: all 0.2s ease;
-             text-decoration: none;
-        }
-        .nav-btn:hover {
-            background-color: #84cc16;
-            color: #000;
-        }
-
-        /* Form Styling */
-        .form-input {
-            background-color: #333;
-            border: 1px solid #555;
-            color: #fff;
-            padding: 0.75rem 1rem;
-            border-radius: 0.375rem; /* rounded-md */
-            width: 100%;
-            margin-bottom: 1rem;
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #aaa;
-            font-size: 0.875rem; /* text-sm */
-        }
-
-        /* Ensure sections have top padding for nav offset */
-         section[id] {
-             scroll-margin-top: 80px; /* Adjust based on nav height */
-         }
-
-
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SolarTrac Innovations</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<!-- Tailwind via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Recharts + React + ReactDOM -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/recharts/umd/Recharts.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to bottom right, #E6F5D6, #FAF9F5);
+  }
+  .btn-primary { background-color: #7CC74A; }
+  .btn-accent { background-color: #FFB703; }
+  .text-primary { color: #2E7D32; }
+</style>
 </head>
-<body class="bg-black text-white p-4 md:p-8">
+<body class="text-gray-900">
 
-    <div class="max-w-7xl mx-auto">
+<!-- NAV -->
+<header class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <img src="logo.png" alt="SolarTrac Logo" class="w-12 h-12 rounded-full" />
+    <div>
+      <h1 class="text-lg font-extrabold text-primary">SolarTrac Innovations</h1>
+      <p class="text-xs text-[#7CC74A]">Your Farm, Your Power</p>
+    </div>
+  </div>
+  <nav class="hidden md:flex gap-5 text-sm items-center">
+    <a href="#about" class="hover:underline text-primary">About</a>
+    <a href="#products" class="hover:underline text-primary">Products</a>
+    <a href="#roi" class="hover:underline text-primary">ROI</a>
+    <a href="#team" class="hover:underline text-primary">Team</a>
+    <a href="#contact" class="px-4 py-2 rounded text-white btn-accent shadow">Contact</a>
+  </nav>
+</header>
 
-        <!-- Header -->
-        <header class="text-center mb-6 md:mb-12 flex flex-col md:flex-row justify-between items-center relative">
-            <div>
-                <h1 class="text-4xl md:text-6xl font-black text-theme-green mb-1">SOLAR TRAC</h1>
-                <h2 class="text-2xl md:text-4xl font-bold text-white">INNOVATIONS</h2>
-            </div>
-            <div class="flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0">
-                 <button id="lang-toggle" class="bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-300">
-                    हिंदी / English
-                 </button>
-                <a href="tel:9328996205" class="bg-theme-green text-black font-bold py-3 px-6 rounded-lg hover:bg-opacity-80 transition duration-300 text-lg whitespace-nowrap">
-                    Call Us Now: 9328996205
-                </a>
-            </div>
-        </header>
+<!-- HERO -->
+<section class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center gap-8">
+  <div class="flex-1">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
+      From Traditional to Solar-powered Tractors
+    </h2>
+    <p class="mt-4 text-gray-700 text-lg">
+      Cut fuel costs, reduce pollution, and achieve farm independence with our solar-hybrid retrofit kits.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="#products" class="px-6 py-3 text-white rounded shadow btn-primary">Explore Products</a>
+      <a href="#contact" class="px-6 py-3 bg-white border rounded text-primary">Book a Demo</a>
+      <a href="SolarTrac.pdf" download class="px-6 py-3 text-white rounded shadow btn-accent">Download Brochure</a>
+    </div>
+  </div>
+  <div class="flex-1 flex justify-center">
+    <img src="logo.png" alt="SolarTrac" class="w-60 h-60 p-6 bg-white rounded-2xl shadow-lg" />
+  </div>
+</section>
 
-        <!-- Navigation Bar -->
-         <nav class="sticky top-0 z-50 bg-black bg-opacity-80 backdrop-blur-md py-3 mb-8 rounded-lg shadow-lg">
-             <div class="max-w-7xl mx-auto px-4">
-                 <div class="flex flex-wrap justify-center gap-3 md:gap-6">
-                    <a href="#problem" class="nav-btn" data-lang-key="nav_problem">The Problem</a>
-                    <a href="#solution" class="nav-btn" data-lang-key="nav_solution">Our Solution</a>
-                    <a href="#roi" class="nav-btn" data-lang-key="nav_roi">Farmer ROI</a>
-                    <a href="#team" class="nav-btn" data-lang-key="nav_team">Our Team</a>
-                    <a href="#contact" class="nav-btn" data-lang-key="nav_contact">Contact Us</a>
-                 </div>
-             </div>
-         </nav>
+<!-- ABOUT -->
+<section id="about" class="max-w-6xl mx-auto px-6 py-12">
+  <h3 class="text-3xl font-bold text-primary mb-4">About Us</h3>
+  <p class="text-gray-700 leading-relaxed">
+    SolarTrac Innovations is revolutionizing Indian agriculture through clean energy. 
+    Our retrofit kits convert traditional tractors into solar-hybrid systems, 
+    enabling farmers to save fuel, reduce emissions, and achieve long-term sustainability.
+  </p>
+</section>
 
+<!-- PRODUCTS -->
+<section id="products" class="max-w-6xl mx-auto px-6 py-12 bg-white/70 rounded-2xl shadow-sm">
+  <h3 class="text-3xl font-bold text-primary mb-6">Our Products</h3>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="font-semibold text-lg text-primary mb-2">Solar Retrofit Kit</h4>
+      <p class="text-gray-700">Easily converts diesel tractors into solar-powered hybrids.</p>
+    </div>
+    <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="font-semibold text-lg text-primary mb-2">Smart Power Controller</h4>
+      <p class="text-gray-700">Automatically balances solar and fuel input for max efficiency.</p>
+    </div>
+    <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="font-semibold text-lg text-primary mb-2">Solar Charging Dock</h4>
+      <p class="text-gray-700">Portable, weather-resistant station for solar tractor charging.</p>
+    </div>
+  </div>
+</section>
 
-        <!-- Hero Section -->
-         <section class="text-center mb-16 p-8 bg-theme-card rounded-lg">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-theme-yellow" data-lang-key="hero_title">Revolutionizing Farming with Solar Power</h2>
-            <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto" data-lang-key="hero_desc">
-                Transform your existing diesel tractor into a powerful, cost-saving solar-hybrid machine. Cut fuel costs dramatically, reduce maintenance, and bring reliable power to your farm and home.
-            </p>
-         </section>
+<!-- ROI CALCULATOR -->
+<section id="roi" class="max-w-6xl mx-auto px-6 py-12">
+  <h3 class="text-3xl font-bold text-primary mb-6">ROI Calculator</h3>
+  <div id="roiChart"></div>
+</section>
 
+<!-- TEAM -->
+<section id="team" class="max-w-6xl mx-auto px-6 py-12 bg-white/70 rounded-2xl shadow-sm">
+  <h3 class="text-3xl font-bold text-primary mb-6">Our Team</h3>
+  <p class="text-gray-700">
+    We’re a passionate group of engineers and sustainability enthusiasts 
+    driven to make Indian agriculture cleaner and more efficient.
+  </p>
+</section>
 
-        <!-- The Problem Section -->
-        <section id="problem" class="mb-16">
-            <h3 class="text-3xl md:text-4xl font-bold text-center mb-8 uppercase tracking-wider" data-lang-key="problem_section_title">The <span class="text-theme-red">Problem</span> We Solve</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <div class="bg-theme-card rounded-lg shadow-lg p-6">
-                    <h4 class="text-2xl font-bold text-theme-red mb-4" data-lang-key="problem_card1_title">Crippling Diesel Costs</h4>
-                    <p class="text-lg" data-lang-key="problem_card1_desc">Farmers spend ≈ <b>₹1.5 lakh</b> annually on diesel & maintenance, eroding profits.</p>
-                </div>
+<!-- CONTACT -->
+<section id="contact" class="max-w-6xl mx-auto px-6 py-12">
+  <h3 class="text-3xl font-bold text-primary mb-4">Contact Us</h3>
+  <p class="text-gray-700 mb-4">
+    Call us at <strong>+91 9328996205</strong> or email 
+    <a href="mailto:solartracinnovations@gmail.com" class="text-primary underline">solartracinnovations@gmail.com</a>
+  </p>
+  <form action="https://formspree.io/f/myzblpby" method="POST" class="grid md:grid-cols-2 gap-4">
+    <input type="text" name="name" placeholder="Your Name" required class="border p-3 rounded" />
+    <input type="email" name="email" placeholder="Your Email" required class="border p-3 rounded" />
+    <textarea name="message" placeholder="Your Message" required class="border p-3 rounded md:col-span-2"></textarea>
+    <button type="submit" class="btn-primary text-white py-3 rounded font-semibold md:col-span-2">Send Message</button>
+  </form>
+</section>
 
-                <div class="bg-theme-card rounded-lg shadow-lg p-6">
-                    <h4 class="text-2xl font-bold text-theme-yellow mb-4" data-lang-key="problem_card2_title">Massive Market Impact</h4>
-                    <p class="text-lg" data-lang-key="problem_card2_desc"><b>9.5 million+</b> tractors in India rely on expensive, polluting diesel.</p>
-                </div>
+<!-- FOOTER -->
+<footer class="text-center py-6 text-sm text-gray-600 bg-white/70 mt-10">
+  © 2025 SolarTrac Innovations. All rights reserved.
+</footer>
 
-                <div class="bg-theme-card rounded-lg shadow-lg p-6 md:col-span-2 lg:col-span-1">
-                    <h4 class="text-2xl font-bold text-theme-orange mb-4" data-lang-key="problem_card3_title">Environmental Damage</h4>
-                    <p class="text-lg" data-lang-key="problem_card3_desc">Significant air (~3 tons CO₂/tractor/year) and noise pollution.</p>
-                </div>
-            </div>
-        </section>
+<!-- ROI Chart Script -->
+<script type="text/javascript">
+  const e = React.createElement;
+  const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } = Recharts;
 
-        <!-- Our Solution Section -->
-        <section id="solution" class="mb-16">
-            <h3 class="text-3xl md:text-4xl font-bold text-center mb-8 uppercase tracking-wider" data-lang-key="solution_section_title">Our <span class="text-theme-green">Solution</span>: The SolarTrac Kit</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-theme-card rounded-lg p-8">
-                <div>
-                     <h4 class="text-2xl font-bold text-theme-green mb-4" data-lang-key="solution_card1_title">Retrofit Your Existing Tractor</h4>
-                    <p class="text-lg mb-4 text-gray-300" data-lang-key="solution_card1_desc">No need to buy a new, expensive E-Tractor. Our kit transforms the machine you already own into a solar-hybrid powerhouse.</p>
-                     <h5 class="text-xl font-semibold text-theme-yellow mb-2" data-lang-key="solution_features_title">Key Features:</h5>
-                     <ul class="list-disc list-inside space-y-2 text-lg">
-                        <li data-lang-key="solution_feature1"><b>Hybrid Safety Net:</b> Electric + Diesel = Zero downtime risk.</li>
-                        <li data-lang-key="solution_feature2"><b>Dual Charging:</b> Free solar power + convenient AC charging.</li>
-                        <li data-lang-key="solution_feature3"><b>Energy Hub (V2L):</b> Power your tools or home (1-1.5kVA AC outlet).</li>
-                    </ul>
-                </div>
-                 <div>
-                     <img src="solartracv.jpg" alt="SolarTrac Retrofitted Tractor" class="rounded-lg shadow-lg object-cover w-full h-auto max-h-[400px]">
-                 </div>
-            </div>
-             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <div class="bg-theme-card rounded-lg p-6 text-center">
-                    <h4 class="text-xl font-bold text-theme-green" data-lang-key="solution_lite">SolarTrac Lite (15-30 HP)</h4>
-                </div>
-                <div class="bg-theme-card rounded-lg p-6 text-center border-2 border-theme-green">
-                    <h4 class="text-xl font-bold text-theme-green" data-lang-key="solution_standard">SolarTrac Standard (31-50 HP)</h4>
-                </div>
-                <div class="bg-theme-card rounded-lg p-6 text-center">
-                    <h4 class="text-xl font-bold text-theme-green" data-lang-key="solution_plus">SolarTrac Plus (50+ HP)</h4>
-                     <span class="text-sm text-gray-400" data-lang-key="solution_coming_soon">(Coming Soon)</span>
-                </div>
-            </div>
-        </section>
+  const ROIChart = () => {
+    const data = [
+      { year: "Year 0", Baseline: 200000, SolarTrac: 120000 },
+      { year: "Year 1", Baseline: 200000, SolarTrac: 100000 },
+      { year: "Year 2", Baseline: 200000, SolarTrac: 70000 },
+      { year: "Year 3", Baseline: 200000, SolarTrac: 40000 },
+      { year: "Year 4", Baseline: 200000, SolarTrac: 20000 },
+      { year: "Year 5", Baseline: 200000, SolarTrac: 0 },
+    ];
+    return e("div", { style: { width: "100%", height: 300 } },
+      e(ResponsiveContainer, { width: "100%", height: "100%" },
+        e(LineChart, { data },
+          e(CartesianGrid, { strokeDasharray: "3 3" }),
+          e(XAxis, { dataKey: "year" }),
+          e(YAxis, null),
+          e(Tooltip, null),
+          e(Line, { type: "monotone", dataKey: "Baseline", stroke: "#FFB703", strokeWidth: 3 }),
+          e(Line, { type: "monotone", dataKey: "SolarTrac", stroke: "#7CC74A", strokeWidth: 3 })
+        )
+      )
+    );
+  };
 
-        <!-- Farmer ROI Section -->
-        <section id="roi" class="mb-16">
-            <h3 class="text-3xl md:text-4xl font-bold text-center mb-8 uppercase tracking-wider" data-lang-key="roi_section_title">The <span class="text-theme-yellow">Farmer ROI</span> is Clear</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <div class="md:col-span-1 bg-theme-card rounded-lg shadow-lg p-6 flex flex-col justify-center items-center text-center">
-                    <h4 class="text-2xl font-bold text-theme-green mb-2" data-lang-key="roi_payback_title">PAYBACK PERIOD</h4>
-                    <div class="text-8xl font-black text-theme-green">26</div>
-                    <div class="text-4xl font-bold text-white" data-lang-key="roi_months">Months</div>
-                    <p class="text-lg mt-4 text-gray-300" data-lang-key="roi_payback_desc">Invest once, save for years. Pays for itself in just over 2 years.</p>
-                </div>
-
-                <div class="md:col-span-2 bg-theme-card rounded-lg shadow-lg p-6">
-                    <h4 class="text-2xl font-bold text-center text-theme-yellow mb-4" data-lang-key="roi_chart_title">Slash Annual Costs Dramatically</h4>
-                    <div class="chart-container">
-                        <canvas id="roiChart"></canvas>
-                    </div>
-                     <p class="text-center text-lg mt-4 text-gray-300" data-lang-key="roi_savings_desc">Save approximately <b>₹1.13 Lakhs</b> every year on fuel and maintenance!</p>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- National Goals Section -->
-        <section id="goals" class="mb-16">
-            <h3 class="text-3xl md:text-4xl font-bold text-center mb-8 uppercase tracking-wider" data-lang-key="goals_section_title">Supporting <span class="text-theme-green">National Goals</span></h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                <div class="bg-theme-card rounded-lg p-6">
-                    <h4 class="text-xl font-bold text-theme-green mb-2" data-lang-key="goal1_title">Aatmanirbhar Bharat</h4>
-                    <p data-lang-key="goal1_desc">Local innovation for farmer energy independence.</p>
-                </div>
-                <div class="bg-theme-card rounded-lg p-6">
-                    <h4 class="text-xl font-bold text-theme-green mb-2" data-lang-key="goal2_title">PM-KUSUM</h4>
-                    <p data-lang-key="goal2_desc">Advancing solar-powered agriculture.</p>
-                </div>
-                <div class="bg-theme-card rounded-lg p-6">
-                    <h4 class="text-xl font-bold text-theme-green mb-2" data-lang-key="goal3_title">Farmer Income</h4>
-                    <p data-lang-key="goal3_desc">Adds over ₹1.13L annual profit per farmer.</p>
-                </div>
-                <div class="bg-theme-card rounded-lg p-6">
-                    <h4 class="text-xl font-bold text-theme-green mb-2" data-lang-key="goal4_title">Rural Employment</h4>
-                    <p data-lang-key="goal4_desc">Creates local jobs for installation & service.</p>
-                </div>
-            </div>
-        </section>
-
-         <!-- Team Section -->
-        <section id="team" class="mb-16">
-             <h3 class="text-3xl md:text-4xl font-bold text-center mb-8 uppercase tracking-wider" data-lang-key="team_section_title">Our <span class="text-theme-orange">Team</span></h3>
-             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                 <div class="bg-theme-card rounded-lg p-6">
-                     <div class="w-24 h-24 rounded-full bg-theme-green mx-auto mb-4 flex items-center justify-center text-black text-4xl font-bold">RS</div>
-                     <h4 class="text-xl font-bold text-white">Ridaan Sharma</h4>
-                     <p class="text-theme-green font-semibold">CEO</p>
-                 </div>
-                 <div class="bg-theme-card rounded-lg p-6">
-                     <div class="w-24 h-24 rounded-full bg-theme-yellow mx-auto mb-4 flex items-center justify-center text-black text-4xl font-bold">PK</div>
-                     <h4 class="text-xl font-bold text-white">Pratyush Khare</h4>
-                     <p class="text-theme-yellow font-semibold">CFO</p>
-                 </div>
-                 <div class="bg-theme-card rounded-lg p-6">
-                    <div class="w-24 h-24 rounded-full bg-theme-orange mx-auto mb-4 flex items-center justify-center text-black text-4xl font-bold">UP</div>
-                     <h4 class="text-xl font-bold text-white">Ujjwal Pogra</h4>
-                     <p class="text-theme-orange font-semibold">CTO</p>
-                 </div>
-                 <div class="bg-theme-card rounded-lg p-6">
-                     <div class="w-24 h-24 rounded-full bg-theme-red mx-auto mb-4 flex items-center justify-center text-black text-4xl font-bold">GM</div>
-                     <h4 class="text-xl font-bold text-white">Geet Malviya</h4>
-                     <p class="text-theme-red font-semibold">CM&SO</p>
-                 </div>
-             </div>
-        </section>
-
-
-        <!-- Footer / Contact -->
-        <footer id="contact" class="text-center border-t border-gray-700 pt-8 mt-16">
-             <h3 class="text-3xl md:text-4xl font-bold text-center mb-8 uppercase tracking-wider" data-lang-key="contact_section_title"><span class="text-theme-yellow">Contact Us</span></h3>
-             <p class="text-lg text-gray-300 mb-4" data-lang-key="contact_intro">Ready to transform your tractor and save money? Get in touch!</p>
-             
-             <!-- Contact Form -->
-             <form id="contact-form" class="max-w-xl mx-auto mb-8 text-left">
-                <div>
-                    <label for="name" class="form-label" data-lang-key="form_name_label">Your Name</label>
-                    <input type="text" id="name" name="name" required class="form-input">
-                </div>
-                 <div>
-                    <label for="number" class="form-label" data-lang-key="form_number_label">Phone Number</label>
-                    <input type="tel" id="number" name="number" required class="form-input">
-                </div>
-                 <div>
-                    <label for="location" class="form-label" data-lang-key="form_location_label">Village / District</label>
-                    <input type="text" id="location" name="location" required class="form-input">
-                </div>
-                 <button type="submit" class="w-full bg-theme-yellow text-black font-bold py-3 px-6 rounded-lg hover:bg-opacity-80 transition duration-300 text-lg" data-lang-key="form_submit_button">
-                    Submit Query
-                 </button>
-                 <p id="form-message" class="text-center text-theme-green mt-4"></p>
-             </form>
-
-             <!-- Direct Contact Info -->
-             <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-8">
-                 <a href="tel:9328996205" class="bg-theme-green text-black font-bold py-3 px-8 rounded-lg hover:bg-opacity-80 transition duration-300 text-lg whitespace-nowrap">
-                    Call: 9328996205
-                </a>
-                <a href="mailto:solartracinnovations@gmail.com" class="text-theme-yellow underline hover:text-yellow-300 transition duration-300 text-lg">
-                    solartracinnovations@gmail.com
-                </a>
-             </div>
-
-            <p class="text-gray-500 mt-8" data-lang-key="footer_copyright">© 2025 SolarTrac Innovations | Indore, Madhya Pradesh</p>
-
-        </footer>
-
-    </div> <!-- End max-w-7xl container -->
-
-    <!-- JavaScript for Chart and Language Toggle -->
-    <script>
-        // --- Language Data ---
-        const translations = {
-            en: {
-                nav_problem: "The Problem",
-                nav_solution: "Our Solution",
-                nav_roi: "Farmer ROI",
-                nav_team: "Our Team",
-                nav_contact: "Contact Us",
-                hero_title: "Revolutionizing Farming with Solar Power",
-                hero_desc: "Transform your existing diesel tractor into a powerful, cost-saving solar-hybrid machine. Cut fuel costs dramatically, reduce maintenance, and bring reliable power to your farm and home.",
-                problem_section_title: "The Problem We Solve",
-                problem_card1_title: "Crippling Diesel Costs",
-                problem_card1_desc: "Farmers spend ≈ <b>₹1.5 lakh</b> annually on diesel & maintenance, eroding profits.",
-                problem_card2_title: "Massive Market Impact",
-                problem_card2_desc: "<b>9.5 million+</b> tractors in India rely on expensive, polluting diesel.",
-                problem_card3_title: "Environmental Damage",
-                problem_card3_desc: "Significant air (~3 tons CO₂/tractor/year) and noise pollution.",
-                solution_section_title: "Our Solution: The SolarTrac Kit",
-                solution_card1_title: "Retrofit Your Existing Tractor",
-                solution_card1_desc: "No need to buy a new, expensive E-Tractor. Our kit transforms the machine you already own into a solar-hybrid powerhouse.",
-                solution_features_title: "Key Features:",
-                solution_feature1: "<b>Hybrid Safety Net:</b> Electric + Diesel = Zero downtime risk.",
-                solution_feature2: "<b>Dual Charging:</b> Free solar power + convenient AC charging.",
-                solution_feature3: "<b>Energy Hub (V2L):</b> Power your tools or home (1-1.5kVA AC outlet).",
-                solution_lite: "SolarTrac Lite (15-30 HP)",
-                solution_standard: "SolarTrac Standard (31-50 HP)",
-                solution_plus: "SolarTrac Plus (50+ HP)",
-                solution_coming_soon: "(Coming Soon)",
-                roi_section_title: "The Farmer ROI is Clear",
-                roi_payback_title: "PAYBACK PERIOD",
-                roi_months: "Months",
-                roi_payback_desc: "Invest once, save for years. Pays for itself in just over 2 years.",
-                roi_chart_title: "Slash Annual Costs Dramatically",
-                roi_savings_desc: "Save approximately <b>₹1.13 Lakhs</b> every year on fuel and maintenance!",
-                goals_section_title: "Supporting National Goals",
-                goal1_title: "Aatmanirbhar Bharat",
-                goal1_desc: "Local innovation for farmer energy independence.",
-                goal2_title: "PM-KUSUM",
-                goal2_desc: "Advancing solar-powered agriculture.",
-                goal3_title: "Farmer Income",
-                goal3_desc: "Adds over ₹1.13L annual profit per farmer.",
-                goal4_title: "Rural Employment",
-                goal4_desc: "Creates local jobs for installation & service.",
-                team_section_title: "Our Team",
-                contact_section_title: "Contact Us",
-                contact_intro: "Ready to transform your tractor and save money? Get in touch!",
-                form_name_label: "Your Name",
-                form_number_label: "Phone Number",
-                form_location_label: "Village / District",
-                form_submit_button: "Submit Query",
-                footer_copyright: "© 2025 SolarTrac Innovations | Indore, Madhya Pradesh",
-                lang_toggle_button: "हिंदी / English"
-            },
-            hi: {
-                nav_problem: "समस्या",
-                nav_solution: "हमारा समाधान",
-                nav_roi: "किसान ROI",
-                nav_team: "हमारी टीम",
-                nav_contact: "संपर्क करें",
-                hero_title: "सौर ऊर्जा से खेती में क्रांति",
-                hero_desc: "अपने मौजूदा डीजल ट्रैक्टर को एक शक्तिशाली, लागत बचाने वाली सोलर-हाइब्रिड मशीन में बदलें। ईंधन की लागत में भारी कटौती करें, रखरखाव कम करें, और अपने खेत और घर में विश्वसनीय बिजली लाएं।",
-                problem_section_title: "हम जो समस्या हल करते हैं",
-                problem_card1_title: "डीजल की भारी लागत",
-                problem_card1_desc: "किसान सालाना डीजल और रखरखाव पर ≈ <b>₹1.5 लाख</b> खर्च करते हैं, जिससे मुनाफा कम होता है।",
-                problem_card2_title: "व्यापक बाजार प्रभाव",
-                problem_card2_desc: "भारत में <b>9.5 मिलियन+</b> ट्रैक्टर महंगे, प्रदूषणकारी डीजल पर निर्भर हैं।",
-                problem_card3_title: "पर्यावरणीय क्षति",
-                problem_card3_desc: "महत्वपूर्ण वायु (~3 टन CO₂/ट्रैक्टर/वर्ष) और ध्वनि प्रदूषण।",
-                solution_section_title: "हमारा समाधान: सोलरट्रैक किट",
-                solution_card1_title: "अपने मौजूदा ट्रैक्टर को रेट्रोफिट करें",
-                solution_card1_desc: "नया, महंगा ई-ट्रैक्टर खरीदने की आवश्यकता नहीं है। हमारी किट आपके पास पहले से मौजूद मशीन को सोलर-हाइब्रिड पावरहाउस में बदल देती है।",
-                solution_features_title: "मुख्य विशेषताएं:",
-                solution_feature1: "<b>हाइब्रिड सेफ्टी नेट:</b> इलेक्ट्रिक + डीजल = शून्य डाउनटाइम जोखिम।",
-                solution_feature2: "<b>दोहरी चार्जिंग:</b> मुफ्त सौर ऊर्जा + सुविधाजनक एसी चार्जिंग।",
-                solution_feature3: "<b>एनर्जी हब (V2L):</b> अपने औजारों या घर को बिजली दें (1-1.5kVA AC आउटलेट)।",
-                solution_lite: "सोलरट्रैक लाइट (15-30 HP)",
-                solution_standard: "सोलरट्रैक स्टैंडर्ड (31-50 HP)",
-                solution_plus: "सोलरट्रैक प्लस (50+ HP)",
-                solution_coming_soon: "(जल्द आ रहा है)",
-                roi_section_title: "किसान का ROI स्पष्ट है",
-                roi_payback_title: "भुगतान अवधि",
-                roi_months: "महीने",
-                roi_payback_desc: "एक बार निवेश करें, वर्षों तक बचत करें। केवल 2 वर्षों में लागत वसूल।",
-                roi_chart_title: "सालाना लागत में भारी कटौती",
-                roi_savings_desc: "ईंधन और रखरखाव पर हर साल लगभग <b>₹1.13 लाख</b> बचाएं!",
-                goals_section_title: "राष्ट्रीय लक्ष्यों का समर्थन",
-                goal1_title: "आत्मनिर्भर भारत",
-                goal1_desc: "किसान ऊर्जा स्वतंत्रता के लिए स्थानीय नवाचार।",
-                goal2_title: "पीएम-कुसुम",
-                goal2_desc: "सौर ऊर्जा संचालित कृषि को बढ़ावा देना।",
-                goal3_title: "किसान आय",
-                goal3_desc: "प्रति किसान ₹1.13L से अधिक वार्षिक लाभ जोड़ता है।",
-                goal4_title: "ग्रामीण रोजगार",
-                goal4_desc: "स्थापना और सेवा के लिए स्थानीय नौकरियां बनाता है।",
-                team_section_title: "हमारी टीम",
-                contact_section_title: "संपर्क करें",
-                contact_intro: "अपने ट्रैक्टर को बदलने और पैसे बचाने के लिए तैयार हैं? संपर्क करें!",
-                form_name_label: "आपका नाम",
-                form_number_label: "फ़ोन नंबर",
-                form_location_label: "गाँव / जिला",
-                form_submit_button: "प्रश्न भेजें",
-                footer_copyright: "© 2025 सोलरट्रैक इनोवेशन | इंदौर, मध्य प्रदेश",
-                lang_toggle_button: "हिंदी / English"
-            }
-        };
-
-        let currentLang = 'en'; // Default language
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            const elements = document.querySelectorAll('[data-lang-key]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-lang-key');
-                if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key]; // Use innerHTML to render <b> tags
-                }
-            });
-             // Update chart titles if needed (optional)
-             if (roiChart && roiChart.options.plugins.title) {
-                roiChart.options.plugins.title.text = translations[lang]['roi_chart_title'] || 'Annual Cost Comparison';
-                roiChart.update();
-             }
-             // Update language toggle button text
-             const toggleButton = document.getElementById('lang-toggle');
-             if (toggleButton) {
-                 toggleButton.textContent = translations[lang]['lang_toggle_button'];
-             }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-             // Language Toggle Button
-            const toggleButton = document.getElementById('lang-toggle');
-            if (toggleButton) {
-                toggleButton.addEventListener('click', () => {
-                    const newLang = currentLang === 'en' ? 'hi' : 'en';
-                    setLanguage(newLang);
-                });
-            } else {
-                 console.error("Language toggle button not found.");
-            }
-
-             // Initialize page in English
-             setLanguage('en'); 
-
-             // Contact Form Submission Handler (Basic Example)
-            const contactForm = document.getElementById('contact-form');
-            const formMessage = document.getElementById('form-message');
-            if (contactForm && formMessage) {
-                contactForm.addEventListener('submit', (e) => {
-                    e.preventDefault(); // Prevent actual form submission
-                    // In a real application, you would send this data to a server
-                    console.log('Form submitted (simulated)');
-                    formMessage.textContent = currentLang === 'hi' ? 'आपका प्रश्न सफलतापूर्वक भेज दिया गया है!' : 'Your query has been submitted successfully!';
-                    contactForm.reset(); // Clear the form
-                    setTimeout(() => { formMessage.textContent = ''; }, 5000); // Clear message after 5 seconds
-                });
-            } else {
-                 console.error("Contact form or message element not found.");
-            }
-        });
-
-
-        // --- Chart.js Logic ---
-        // Farmer ROI Chart
-        const ctxROI = document.getElementById('roiChart').getContext('2d');
-        const roiChart = new Chart(ctxROI, {
-            type: 'bar',
-            data: {
-                labels: ['Fuel', 'Maintenance'], // These labels might need translation if keys existed
-                datasets: [
-                    {
-                        label: 'Baseline (Diesel Only)', // This label needs translation key
-                        data: [138000, 15000],
-                        backgroundColor: '#facc15', // Theme Yellow
-                        borderColor: '#facc15',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'With SolarTrac', // This label needs translation key
-                        data: [34500, 5000],
-                        backgroundColor: '#ef4444', // Theme Red
-                        borderColor: '#ef4444',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#FFFFFF' // White labels
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.parsed.y !== null) {
-                                    // Format as Indian Rupees, no decimals
-                                    label += new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(context.parsed.y);
-                                }
-                                return label;
-                            },
-                             title: function(tooltipItems) {
-                                const item = tooltipItems[0];
-                                let label = item.chart.data.labels[item.dataIndex];
-                                if (Array.isArray(label)) {
-                                  return label.join(' ');
-                                } else {
-                                  return label;
-                                }
-                             }
-                        }
-                    }
-                    // Consider adding title plugin for chart title translation
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: '#FFFFFF', // White axis numbers
-                            callback: function(value, index, values) {
-                                // Format as '₹140k' etc.
-                                return '₹' + (value / 1000) + 'k'; 
-                            }
-                        },
-                        grid: {
-                            color: '#444' // Dim grid lines
-                        },
-                        title: {
-                            display: true,
-                            text: 'Annual Cost (in ₹)', // This needs translation key
-                            color: '#FFFFFF'
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: '#FFFFFF' // White axis labels
-                        },
-                        grid: {
-                            color: 'transparent' // No vertical grid lines
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-
+  ReactDOM.render(e(ROIChart), document.getElementById("roiChart"));
+</script>
 </body>
 </html>
+
+
 
 
 
