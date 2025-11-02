@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolarTrac Innovations</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffffff, #D3ED88);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    .btn-primary {
+      background-color: #D3ED88;
+      color: #1a1a1a;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #A3C459;
+      color: #fff;
+    }
+    header {
+      background: #ffffffcc;
+      backdrop-filter: blur(8px);
+    }
+    @media (max-width: 640px) {
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.25rem; }
+      h3 { font-size: 1.1rem; }
+      p { font-size: 0.9rem; }
+      img { max-width: 100%; height: auto; }
+      canvas { height: 250px !important; }
+    }
+  </style>
+</head>
+
+<body class="text-gray-800">
+  <header class="flex flex-wrap items-center justify-between px-4 py-3 shadow-md">
+    <div class="flex items-center space-x-3">
+      <img src="logo.png" alt="SolarTrac Logo" class="h-10 w-10 sm:h-12 sm:w-12">
+      <h1 class="text-xl sm:text-2xl font-bold text-gray-800">SolarTrac Innovations</h1>
+    </div>
+    <button id="langToggle" class="btn-primary px-3 py-2 rounded-lg text-sm sm:text-base">हिन्दी</button>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+    <section id="hero" class="text-center mb-12">
+      <img src="solartracv.jpg" alt="Solar Tracking Vehicle" class="rounded-2xl shadow-lg mx-auto mb-6 sm:mb-8 w-full sm:w-3/4">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Smarter Solar Efficiency, Powered by AI</h2>
+      <p class="text-base sm:text-lg mb-5 sm:mb-6">Harness maximum sunlight with precision tracking technology designed for sustainability and performance.</p>
+      <a href="#roi" class="btn-primary px-4 sm:px-6 py-2 sm:py-3 rounded-lg inline-block font-semibold text-sm sm:text-base">Calculate Your ROI</a>
+    </section>
+
+    <section id="roi" class="mt-12 sm:mt-16">
+      <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-center">ROI Calculator</h3>
+      <div class="w-full max-w-md mx-auto">
+        <canvas id="roiChart"></canvas>
+      </div>
+    </section>
+
+    <section id="team" class="mt-12 sm:mt-16">
+      <h3 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Our Team</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center">
+        <div class="p-5 sm:p-6 bg-white rounded-2xl shadow-md">
+          <div class="text-3xl sm:text-4xl font-bold text-[#D3ED88] mb-1 sm:mb-2">R</div>
+          <h4 class="font-semibold text-base sm:text-lg">Ridaan Sharma</h4>
+          <p class="text-xs sm:text-sm text-gray-600">CEO</p>
+        </div>
+        <div class="p-5 sm:p-6 bg-white rounded-2xl shadow-md">
+          <div class="text-3xl sm:text-4xl font-bold text-[#D3ED88] mb-1 sm:mb-2">P</div>
+          <h4 class="font-semibold text-base sm:text-lg">Pratyush Khare</h4>
+          <p class="text-xs sm:text-sm text-gray-600">CFO</p>
+        </div>
+        <div class="p-5 sm:p-6 bg-white rounded-2xl shadow-md">
+          <div class="text-3xl sm:text-4xl font-bold text-[#D3ED88] mb-1 sm:mb-2">U</div>
+          <h4 class="font-semibold text-base sm:text-lg">Ujjwal Pogra</h4>
+          <p class="text-xs sm:text-sm text-gray-600">CTO</p>
+        </div>
+        <div class="p-5 sm:p-6 bg-white rounded-2xl shadow-md">
+          <div class="text-3xl sm:text-4xl font-bold text-[#D3ED88] mb-1 sm:mb-2">G</div>
+          <h4 class="font-semibold text-base sm:text-lg">Geet Malviya</h4>
+          <p class="text-xs sm:text-sm text-gray-600">CM&SO</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center py-5 sm:py-6 mt-12 sm:mt-16 bg-white bg-opacity-60 backdrop-blur-md">
+    <p class="text-gray-700 text-sm sm:text-base">© 2025 SolarTrac Innovations. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Responsive ROI Chart
+    const ctx = document.getElementById('roiChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['1 Year', '2 Years', '3 Years', '4 Years', '5 Years'],
+        datasets: [{
+          label: 'Estimated ROI (%)',
+          data: [10, 25, 40, 60, 80],
+          backgroundColor: '#D3ED88',
+          borderColor: '#A3C459',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: { color: 'rgba(0,0,0,0.05)' },
+            ticks: { color: '#333', font: { size: 10 } }
+          },
+          x: {
+            ticks: { color: '#333', font: { size: 10 } }
+          }
+        },
+        plugins: {
+          legend: { labels: { color: '#333', font: { size: 10 } } }
+        }
+      }
+    });
+
+    // Language Toggle
+    const langToggle = document.getElementById('langToggle');
+    let isHindi = false;
+    langToggle.addEventListener('click', () => {
+      isHindi = !isHindi;
+      document.body.lang = isHindi ? 'hi' : 'en';
+      langToggle.textContent = isHindi ? 'English' : 'हिन्दी';
+      document.querySelector('h2').textContent = isHindi ? 'एआई द्वारा संचालित स्मार्ट सोलर दक्षता' : 'Smarter Solar Efficiency, Powered by AI';
+      document.querySelector('p').textContent = isHindi ? 'सस्टेनेबिलिटी और परफॉर्मेंस के लिए डिज़ाइन की गई सटीक ट्रैकिंग तकनीक के साथ अधिकतम धूप प्राप्त करें।' : 'Harness maximum sunlight with precision tracking technology designed for sustainability and performance.';
+      document.querySelector('a').textContent = isHindi ? 'अपना ROI कैलकुलेट करें' : 'Calculate Your ROI';
+      document.querySelector('#team h3').textContent = isHindi ? 'हमारी टीम' : 'Our Team';
+    });
+  </script>
+</body>
+</html>
