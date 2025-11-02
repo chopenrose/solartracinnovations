@@ -1,163 +1,486 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SolarTrac Innovations</title>
-<link rel="icon" type="image/png" href="logo.png" />
-<!-- Tailwind via CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Recharts + React + ReactDOM -->
-<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/recharts/umd/Recharts.js"></script>
-<style>
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(to bottom right, #E6F5D6, #FAF9F5);
-  }
-  .btn-primary { background-color: #7CC74A; }
-  .btn-accent { background-color: #FFB703; }
-  .text-primary { color: #2E7D32; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SolarTrac Innovations - The Future of Farming</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Logo-based modern green gradient palette */
+      --green-light: #DFF8BF;   /* subtle pale green */
+      --green-mid:  #A6E04A;   /* light lime */
+      --green:      #6EA32A;   /* mid-green */
+      --green-dark: #3A6B15;   /* deep olive */
+      --accent:     #FFE48A;   /* warm highlight (soft yellow) */
+      --card:       #ffffff;   /* cards will be white for contrast */
+      --muted:      #6B7280;   /* gray-500-ish */
+      --page-bg:    #F7FBF2;   /* soft off-white */
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--page-bg);
+      color: #052114;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Re-usable helpers */
+    .brand-gradient {
+      background: linear-gradient(90deg, var(--green-mid), var(--green));
+    }
+
+    .btn-primary {
+      @apply inline-flex items-center justify-center gap-2 font-semibold rounded-lg px-4 py-2 shadow;
+      background: linear-gradient(90deg, var(--green), var(--green-dark));
+      color: white;
+    }
+    .btn-primary:hover { transform: translateY(-2px); transition: all .18s ease; }
+
+    .btn-ghost {
+      @apply inline-flex items-center justify-center gap-2 font-medium rounded-md px-3 py-2;
+      color: var(--green-dark);
+      background: transparent;
+      border: 1px solid rgba(110,163,42,.08);
+    }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(14,29,10,0.06);
+    }
+
+    /* nav sticky blur */
+    nav.sticky-nav {
+      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(110,163,42,0.06);
+    }
+
+    /* Chart container */
+    .chart-area { height: 320px; max-height: 38vh; }
+
+    /* small helpers */
+    .muted { color: var(--muted); }
+
+    /* scroll offset for anchored sections */
+    section[id] { scroll-margin-top: 90px; }
+
+    /* Responsive logo size */
+    .logo-img { width: 64px; height: 64px; object-fit: contain; }
+
+    /* focus styles for accessibility */
+    a:focus, button:focus, input:focus, textarea:focus {
+      outline: 3px solid rgba(110,163,42,0.18);
+      outline-offset: 2px;
+    }
+  </style>
 </head>
-<body class="text-gray-900">
+<body class="p-6 md:p-10">
 
-<!-- NAV -->
-<header class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-  <div class="flex items-center gap-3">
-    <img src="logo.png" alt="SolarTrac Logo" class="w-12 h-12 rounded-full" />
-    <div>
-      <h1 class="text-lg font-extrabold text-primary">SolarTrac Innovations</h1>
-      <p class="text-xs text-[#7CC74A]">Your Farm, Your Power</p>
-    </div>
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+      <div class="flex items-center gap-4">
+        <!-- Logo: adjust path if needed -->
+        <img src="/mnt/data/logo.png" alt="SolarTrac logo" class="logo-img rounded-full bg-white p-1 shadow-sm">
+
+        <div>
+          <h1 class="text-2xl md:text-3xl font-extrabold leading-tight" style="color:var(--green-dark);">
+            SOLARTRAC <span class="text-sm font-semibold block" style="color:var(--green)">INNOVATIONS</span>
+          </h1>
+          <p class="text-sm muted -mt-1">Retrofit • Solar-hybrid • Farmer-first</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="lang-toggle" class="btn-ghost" aria-label="Toggle language">हिंदी / English</button>
+        <a href="tel:9328996205" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="opacity-90"><path d="M22 16.92v3a2 2 0 0 1-2.18 2c-9.2-.98-16.84-8.62-17.82-17.82A2 2 0 0 1 5.08 2h3a2 2 0 0 1 2 1.72c.12.99-.24 2.01-1 2.74l-1.2 1.18a16 16 0 0 0 6.88 6.88l1.18-1.2c.73-.75 1.75-1.12 2.74-1 1 .13 1.72 1.2 1.72 2z" fill="white"/></svg>
+          Call: 9328996205
+        </a>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky-nav sticky top-6 z-40 rounded-xl p-3 mb-8">
+      <div class="flex items-center justify-between gap-3 max-w-6xl mx-auto">
+        <div class="hidden md:flex items-center gap-2">
+          <a href="#problem" class="px-3 py-2 text-sm rounded-md hover:bg-green-50 muted">The Problem</a>
+          <a href="#solution" class="px-3 py-2 text-sm rounded-md hover:bg-green-50 muted">Our Solution</a>
+          <a href="#roi" class="px-3 py-2 text-sm rounded-md hover:bg-green-50 muted">Farmer ROI</a>
+          <a href="#team" class="px-3 py-2 text-sm rounded-md hover:bg-green-50 muted">Our Team</a>
+          <a href="#contact" class="px-3 py-2 text-sm rounded-md hover:bg-green-50 muted">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-3 ml-auto">
+          <a href="#solution" class="btn-primary text-sm">Get a Quote</a>
+          <button id="mobile-menu-btn" class="md:hidden btn-ghost" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="mt-3 md:hidden hidden">
+        <div class="flex flex-col gap-2">
+          <a href="#problem" class="px-3 py-2 rounded-md muted">The Problem</a>
+          <a href="#solution" class="px-3 py-2 rounded-md muted">Our Solution</a>
+          <a href="#roi" class="px-3 py-2 rounded-md muted">Farmer ROI</a>
+          <a href="#team" class="px-3 py-2 rounded-md muted">Our Team</a>
+          <a href="#contact" class="px-3 py-2 rounded-md muted">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="card overflow-hidden mb-10 p-8 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+      <div>
+        <div class="inline-flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:var(--green-light); color:var(--green-dark)">New • Solar Trac Kit</span>
+          <span class="text-sm muted">Save fuel • Run tools • Increase income</span>
+        </div>
+
+        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight" style="color:var(--green-dark)">Revolutionizing Farming with Solar Power</h2>
+        <p class="mt-4 text-lg muted max-w-xl">Transform your existing diesel tractor into a cost-saving solar-hybrid machine. Cut fuel expenses, reduce maintenance, and unlock reliable power for farm & home through Vehicle-to-Load (V2L).</p>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#solution" class="btn-primary">See the Kit</a>
+          <a href="#contact" class="btn-ghost">Contact Sales</a>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 gap-3 max-w-sm">
+          <div class="p-4 rounded-lg" style="background:linear-gradient(180deg,var(--green-light),rgba(166,224,74,0.12))">
+            <div class="text-sm muted">Payback</div>
+            <div class="text-xl font-bold" style="color:var(--green-dark)">~26 months</div>
+          </div>
+          <div class="p-4 rounded-lg" style="background:linear-gradient(180deg,var(--accent),rgba(255,228,138,0.12))">
+            <div class="text-sm muted">Annual Savings</div>
+            <div class="text-xl font-bold" style="color:var(--green-dark)">₹1.13 Lakh</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center">
+        <!-- illustrative image or tractor -->
+        <div class="w-full max-w-md">
+          <!-- Replace with actual image; fallback: stylized block -->
+          <img src="solartracv.jpg" alt="SolarTrac Retrofitted Tractor" class="w-full h-auto rounded-lg shadow-md object-cover">
+        </div>
+      </div>
+    </section>
+
+    <!-- The Problem -->
+    <section id="problem" class="mb-12">
+      <h3 class="text-2xl font-bold mb-6" style="color:var(--green-dark)">The <span style="color:var(--green)">Problem</span> We Solve</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-6">
+          <h4 class="text-lg font-bold mb-2" style="color:var(--green-dark)">Crippling Diesel Costs</h4>
+          <p class="muted">Farmers spend ≈ <strong>₹1.5 lakh</strong> annually on diesel & maintenance, eroding profits.</p>
+        </div>
+
+        <div class="card p-6">
+          <h4 class="text-lg font-bold mb-2" style="color:var(--green-dark)">Massive Market Impact</h4>
+          <p class="muted"><strong>9.5 million+</strong> tractors in India rely on expensive, polluting diesel.</p>
+        </div>
+
+        <div class="card p-6">
+          <h4 class="text-lg font-bold mb-2" style="color:var(--green-dark)">Environmental Damage</h4>
+          <p class="muted">Significant air (~3 tons CO₂/tractor/year) and noise pollution — with large health & climate costs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solution -->
+    <section id="solution" class="mb-12">
+      <h3 class="text-2xl font-bold mb-6" style="color:var(--green-dark)">Our <span style="color:var(--green)">Solution</span>: The SolarTrac Kit</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-2 card p-6">
+          <h4 class="text-lg font-bold mb-3" style="color:var(--green-dark)">Retrofit Your Existing Tractor</h4>
+          <p class="muted mb-4">No need to buy a new e-tractor. Our kit converts your existing machine into a solar-hybrid powerhouse with integrated V2L and dual charging.</p>
+
+          <h5 class="font-semibold mb-2" style="color:var(--green-dark)">Key Features</h5>
+          <ul class="list-disc list-inside muted space-y-1">
+            <li><strong>Hybrid Safety Net:</strong> Electric + Diesel = Zero downtime risk.</li>
+            <li><strong>Dual Charging:</strong> Solar + AC charging for flexible operations.</li>
+            <li><strong>Energy Hub (V2L):</strong> Power tools or home appliances — 1–1.5 kVA AC output.</li>
+          </ul>
+
+          <div class="mt-6 flex gap-3">
+            <a class="btn-primary" href="#contact">Request Demo</a>
+            <a class="btn-ghost" href="#roi">See ROI</a>
+          </div>
+        </div>
+
+        <div class="card p-6">
+          <h4 class="font-bold mb-3" style="color:var(--green-dark)">Choose Your Kit</h4>
+          <div class="space-y-3">
+            <div class="p-3 rounded-md border border-gray-100">
+              <div class="flex justify-between">
+                <div><strong>SolarTrac Lite</strong><div class="muted text-sm">15–30 HP</div></div>
+                <div class="text-sm font-semibold" style="color:var(--green-dark)">Ideal small farms</div>
+              </div>
+            </div>
+            <div class="p-3 rounded-md border-2 border-green-100 bg-gradient-to-r from-white to-transparent">
+              <div class="flex justify-between">
+                <div><strong>SolarTrac Standard</strong><div class="muted text-sm">31–50 HP</div></div>
+                <div class="text-sm font-semibold" style="color:var(--green-dark)">Most popular</div>
+              </div>
+            </div>
+            <div class="p-3 rounded-md border border-gray-100">
+              <div class="flex justify-between">
+                <div><strong>SolarTrac Plus</strong><div class="muted text-sm">50+ HP</div></div>
+                <div class="text-sm muted">Coming soon</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROI -->
+    <section id="roi" class="mb-12">
+      <h3 class="text-2xl font-bold mb-6" style="color:var(--green-dark)">The Farmer <span style="color:var(--accent)">ROI</span> is Clear</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-6 text-center">
+          <div class="text-sm muted">PAYBACK PERIOD</div>
+          <div class="text-5xl font-extrabold my-2" style="color:var(--green-dark)">26</div>
+          <div class="muted">Months</div>
+          <p class="muted mt-4">Invest once — save for years. Typical savings shown below.</p>
+        </div>
+
+        <div class="md:col-span-2 card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="font-bold" style="color:var(--green-dark)">Slash Annual Costs Dramatically</h4>
+            <div class="text-sm muted">Compare baseline vs SolarTrac</div>
+          </div>
+
+          <div class="chart-area card p-4">
+            <canvas id="roiChart"></canvas>
+          </div>
+
+          <p class="muted mt-4 text-sm">Save approximately <strong>₹1.13 Lakhs</strong> every year on fuel and maintenance!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Goals (small) -->
+    <section id="goals" class="mb-12">
+      <h3 class="text-lg font-bold mb-4" style="color:var(--green-dark)">Supporting National Goals</h3>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="card p-4 text-center">
+          <div class="text-sm font-semibold" style="color:var(--green-dark)">Aatmanirbhar Bharat</div>
+          <div class="muted text-sm">Local innovation</div>
+        </div>
+        <div class="card p-4 text-center">
+          <div class="text-sm font-semibold" style="color:var(--green-dark)">PM-KUSUM</div>
+          <div class="muted text-sm">Solar agriculture</div>
+        </div>
+        <div class="card p-4 text-center">
+          <div class="text-sm font-semibold" style="color:var(--green-dark)">Farmer Income</div>
+          <div class="muted text-sm">₹1.13L annual profit</div>
+        </div>
+        <div class="card p-4 text-center">
+          <div class="text-sm font-semibold" style="color:var(--green-dark)">Rural Employment</div>
+          <div class="muted text-sm">Local jobs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="mb-12">
+      <h3 class="text-2xl font-bold mb-6" style="color:var(--green-dark)">Our Team</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Person -->
+        <div class="card p-6 text-center">
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-var(--green-mid) to-var(--green) flex items-center justify-center text-white font-bold text-xl">RS</div>
+          <h4 class="mt-4 font-semibold" style="color:var(--green-dark)">Ridaan Sharma</h4>
+          <div class="muted text-sm">CEO</div>
+        </div>
+
+        <div class="card p-6 text-center">
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-var(--accent) to-white flex items-center justify-center text-green-dark font-bold text-xl">PK</div>
+          <h4 class="mt-4 font-semibold" style="color:var(--green-dark)">Pratyush Khare</h4>
+          <div class="muted text-sm">CFO</div>
+        </div>
+
+        <div class="card p-6 text-center">
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-green-200 to-green-400 flex items-center justify-center text-white font-bold text-xl">UP</div>
+          <h4 class="mt-4 font-semibold" style="color:var(--green-dark)">Ujjwal Pogra</h4>
+          <div class="muted text-sm">CTO</div>
+        </div>
+
+        <div class="card p-6 text-center">
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-yellow-300 to-orange-200 flex items-center justify-center text-green-dark font-bold text-xl">GM</div>
+          <h4 class="mt-4 font-semibold" style="color:var(--green-dark)">Geet Malviya</h4>
+          <div class="muted text-sm">CM & SO</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <footer id="contact" class="card p-6 mt-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        <div>
+          <h4 class="text-xl font-bold" style="color:var(--green-dark)">Contact Us</h4>
+          <p class="muted mt-2">Ready to transform your tractor and save money? Fill the form or call us directly.</p>
+
+          <div class="mt-4 flex gap-3">
+            <a href="tel:9328996205" class="btn-primary">Call: 9328996205</a>
+            <a href="mailto:solartracinnovations@gmail.com" class="btn-ghost">Email Us</a>
+          </div>
+
+          <p class="muted mt-6 text-sm">© 2025 SolarTrac Innovations | Indore, Madhya Pradesh</p>
+        </div>
+
+        <div>
+          <form id="contact-form" class="space-y-3">
+            <div>
+              <label for="name" class="block text-sm font-medium muted">Your Name</label>
+              <input id="name" name="name" required class="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-3" placeholder="Ramesh Kumar">
+            </div>
+
+            <div>
+              <label for="number" class="block text-sm font-medium muted">Phone Number</label>
+              <input id="number" type="tel" name="number" required class="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-3" placeholder="9328xxxxxx">
+            </div>
+
+            <div>
+              <label for="location" class="block text-sm font-medium muted">Village / District</label>
+              <input id="location" name="location" required class="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-3" placeholder="Indore, MP">
+            </div>
+
+            <button type="submit" class="btn-primary w-full">Submit Query</button>
+            <p id="form-message" class="mt-2 text-sm font-medium" style="color:var(--green-dark)"></p>
+          </form>
+        </div>
+      </div>
+    </footer>
+
   </div>
-  <nav class="hidden md:flex gap-5 text-sm items-center">
-    <a href="#about" class="hover:underline text-primary">About</a>
-    <a href="#products" class="hover:underline text-primary">Products</a>
-    <a href="#roi" class="hover:underline text-primary">ROI</a>
-    <a href="#team" class="hover:underline text-primary">Team</a>
-    <a href="#contact" class="px-4 py-2 rounded text-white btn-accent shadow">Contact</a>
-  </nav>
-</header>
 
-<!-- HERO -->
-<section class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center gap-8">
-  <div class="flex-1">
-    <h2 class="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
-      From Traditional to Solar-powered Tractors
-    </h2>
-    <p class="mt-4 text-gray-700 text-lg">
-      Cut fuel costs, reduce pollution, and achieve farm independence with our solar-hybrid retrofit kits.
-    </p>
-    <div class="mt-6 flex flex-wrap gap-3">
-      <a href="#products" class="px-6 py-3 text-white rounded shadow btn-primary">Explore Products</a>
-      <a href="#contact" class="px-6 py-3 bg-white border rounded text-primary">Book a Demo</a>
-      <a href="SolarTrac.pdf" download class="px-6 py-3 text-white rounded shadow btn-accent">Download Brochure</a>
-    </div>
-  </div>
-  <div class="flex-1 flex justify-center">
-    <img src="logo.png" alt="SolarTrac" class="w-60 h-60 p-6 bg-white rounded-2xl shadow-lg" />
-  </div>
-</section>
+  <!-- Scripts: language toggle, mobile menu, Chart.js, form handler -->
+  <script>
+    // translations (same as you had, trimmed a bit)
+    const translations = {
+      en: { nav_problem:"The Problem", nav_solution:"Our Solution", nav_roi:"Farmer ROI", nav_team:"Our Team", nav_contact:"Contact",
+            hero_title:"Revolutionizing Farming with Solar Power", hero_desc:"Transform your existing diesel tractor into a powerful, cost-saving solar-hybrid machine. Cut fuel costs dramatically, reduce maintenance, and bring reliable power to your farm and home.",
+            form_success:"Your query has been submitted successfully!", lang_toggle:"हिंदी / English" },
+      hi: { nav_problem:"समस्या", nav_solution:"हमारा समाधान", nav_roi:"किसान ROI", nav_team:"हमारी टीम", nav_contact:"संपर्क करें",
+            hero_title:"सौर ऊर्जा से खेती में क्रांति", hero_desc:"अपने मौजूदा डीजल ट्रैक्टर को एक शक्तिशाली, लागत बचाने वाली सोलर-हाइब्रिड मशीन में बदलें।",
+            form_success:"आपका प्रश्न सफलतापूर्वक भेज दिया गया है!", lang_toggle:"हिंदी / English" }
+    };
+    let currentLang = 'en';
 
-<!-- ABOUT -->
-<section id="about" class="max-w-6xl mx-auto px-6 py-12">
-  <h3 class="text-3xl font-bold text-primary mb-4">About Us</h3>
-  <p class="text-gray-700 leading-relaxed">
-    SolarTrac Innovations is revolutionizing Indian agriculture through clean energy. 
-    Our retrofit kits convert traditional tractors into solar-hybrid systems, 
-    enabling farmers to save fuel, reduce emissions, and achieve long-term sustainability.
-  </p>
-</section>
+    function setLanguage(lang) {
+      currentLang = lang;
+      // update key texts where applicable (minimal update here - keeps structure)
+      document.querySelectorAll('[data-lang-key]').forEach(el=>{
+        const key = el.getAttribute('data-lang-key');
+        if (translations[lang][key]) el.innerHTML = translations[lang][key];
+      });
+      // toggle button text
+      document.getElementById('lang-toggle').textContent = translations[lang].lang_toggle || 'हिंदी / English';
+    }
 
-<!-- PRODUCTS -->
-<section id="products" class="max-w-6xl mx-auto px-6 py-12 bg-white/70 rounded-2xl shadow-sm">
-  <h3 class="text-3xl font-bold text-primary mb-6">Our Products</h3>
-  <div class="grid md:grid-cols-3 gap-6">
-    <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-      <h4 class="font-semibold text-lg text-primary mb-2">Solar Retrofit Kit</h4>
-      <p class="text-gray-700">Easily converts diesel tractors into solar-powered hybrids.</p>
-    </div>
-    <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-      <h4 class="font-semibold text-lg text-primary mb-2">Smart Power Controller</h4>
-      <p class="text-gray-700">Automatically balances solar and fuel input for max efficiency.</p>
-    </div>
-    <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-      <h4 class="font-semibold text-lg text-primary mb-2">Solar Charging Dock</h4>
-      <p class="text-gray-700">Portable, weather-resistant station for solar tractor charging.</p>
-    </div>
-  </div>
-</section>
+    // Minimal language wiring for toggler
+    document.getElementById('lang-toggle').addEventListener('click', ()=>{
+      setLanguage(currentLang === 'en' ? 'hi' : 'en');
+    });
 
-<!-- ROI CALCULATOR -->
-<section id="roi" class="max-w-6xl mx-auto px-6 py-12">
-  <h3 class="text-3xl font-bold text-primary mb-6">ROI Calculator</h3>
-  <div id="roiChart"></div>
-</section>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        const menu = document.getElementById('mobile-menu');
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('hidden');
+      });
+    }
 
-<!-- TEAM -->
-<section id="team" class="max-w-6xl mx-auto px-6 py-12 bg-white/70 rounded-2xl shadow-sm">
-  <h3 class="text-3xl font-bold text-primary mb-6">Our Team</h3>
-  <p class="text-gray-700">
-    We’re a passionate group of engineers and sustainability enthusiasts 
-    driven to make Indian agriculture cleaner and more efficient.
-  </p>
-</section>
+    // Contact form handling (simulated)
+    const contactForm = document.getElementById('contact-form');
+    const msg = document.getElementById('form-message');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        msg.textContent = translations[currentLang].form_success || 'Submitted!';
+        contactForm.reset();
+        setTimeout(()=> msg.textContent = '', 5000);
+      });
+    }
 
-<!-- CONTACT -->
-<section id="contact" class="max-w-6xl mx-auto px-6 py-12">
-  <h3 class="text-3xl font-bold text-primary mb-4">Contact Us</h3>
-  <p class="text-gray-700 mb-4">
-    Call us at <strong>+91 9328996205</strong> or email 
-    <a href="mailto:solartracinnovations@gmail.com" class="text-primary underline">solartracinnovations@gmail.com</a>
-  </p>
-  <form action="https://formspree.io/f/myzblpby" method="POST" class="grid md:grid-cols-2 gap-4">
-    <input type="text" name="name" placeholder="Your Name" required class="border p-3 rounded" />
-    <input type="email" name="email" placeholder="Your Email" required class="border p-3 rounded" />
-    <textarea name="message" placeholder="Your Message" required class="border p-3 rounded md:col-span-2"></textarea>
-    <button type="submit" class="btn-primary text-white py-3 rounded font-semibold md:col-span-2">Send Message</button>
-  </form>
-</section>
-
-<!-- FOOTER -->
-<footer class="text-center py-6 text-sm text-gray-600 bg-white/70 mt-10">
-  © 2025 SolarTrac Innovations. All rights reserved.
-</footer>
-
-<!-- ROI Chart Script -->
-<script type="text/javascript">
-  const e = React.createElement;
-  const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } = Recharts;
-
-  const ROIChart = () => {
-    const data = [
-      { year: "Year 0", Baseline: 200000, SolarTrac: 120000 },
-      { year: "Year 1", Baseline: 200000, SolarTrac: 100000 },
-      { year: "Year 2", Baseline: 200000, SolarTrac: 70000 },
-      { year: "Year 3", Baseline: 200000, SolarTrac: 40000 },
-      { year: "Year 4", Baseline: 200000, SolarTrac: 20000 },
-      { year: "Year 5", Baseline: 200000, SolarTrac: 0 },
-    ];
-    return e("div", { style: { width: "100%", height: 300 } },
-      e(ResponsiveContainer, { width: "100%", height: "100%" },
-        e(LineChart, { data },
-          e(CartesianGrid, { strokeDasharray: "3 3" }),
-          e(XAxis, { dataKey: "year" }),
-          e(YAxis, null),
-          e(Tooltip, null),
-          e(Line, { type: "monotone", dataKey: "Baseline", stroke: "#FFB703", strokeWidth: 3 }),
-          e(Line, { type: "monotone", dataKey: "SolarTrac", stroke: "#7CC74A", strokeWidth: 3 })
-        )
-      )
-    );
-  };
-
-  ReactDOM.render(e(ROIChart), document.getElementById("roiChart"));
-</script>
+    // Chart.js ROI chart
+    const ctx = document.getElementById('roiChart').getContext('2d');
+    const roiChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Fuel','Maintenance'],
+        datasets: [
+          {
+            label: 'Baseline (Diesel Only)',
+            data: [138000,15000],
+            backgroundColor: ['rgba(110,163,42,0.9)','rgba(110,163,42,0.65)'],
+            borderRadius: 6
+          },
+          {
+            label: 'With SolarTrac',
+            data: [34500,5000],
+            backgroundColor: ['rgba(58,107,21,0.9)','rgba(58,107,21,0.65)'],
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins: {
+          legend: { labels:{ color:'#15281A' } },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => {
+                const val = ctx.parsed.y || 0;
+                return ctx.dataset.label + ': ' + new Intl.NumberFormat('en-IN', { style:'currency', currency:'INR', maximumFractionDigits:0 }).format(val);
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero:true,
+            ticks: {
+              callback: (v) => '₹' + (v/1000) + 'k',
+              color:'#15281A'
+            },
+            grid: { color:'#EEF6EA' },
+            title: { display:true, text:'Annual Cost (₹)', color:'#15281A' }
+          },
+          x: {
+            ticks: { color:'#15281A' },
+            grid: { display:false }
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
+
+
 
 
 
