@@ -1,142 +1,577 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SolarTrac Innovations</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(to bottom right, #ffffff, #D3ED88);
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
-    .btn-primary {
-      background-color: #D3ED88;
-      color: #1a1a1a;
-      transition: all 0.3s ease;
-    }
-    .btn-primary:hover {
-      background-color: #A3C459;
-      color: #fff;
-    }
-    header {
-      background: #ffffffcc;
-      backdrop-filter: blur(8px);
-    }
-    @media (max-width: 640px) {
-      h1 { font-size: 1.5rem; }
-      h2 { font-size: 1.25rem; }
-      h3 { font-size: 1.1rem; }
-      p { font-size: 0.9rem; }
-      img { max-width: 100%; height: auto; }
-      canvas { height: 250px !important; }
-    }
-  </style>
-</head>
-
-<body class="text-gray-800">
-  <header class="flex flex-wrap items-center justify-between px-4 py-3 shadow-md">
-    <div class="flex items-center space-x-3">
-      <img src="logo.png" alt="SolarTrac Logo" class="h-10 w-10 sm:h-12 sm:w-12">
-      <h1 class="text-xl sm:text-2xl font-bold text-gray-800">SolarTrac Innovations</h1>
-    </div>
-    <button id="langToggle" class="btn-primary px-3 py-2 rounded-lg text-sm sm:text-base">हिन्दी</button>
-  </header>
-
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-    <section id="hero" class="text-center mb-12">
-      <img src="solartracv.jpg" alt="Solar Tracking Vehicle" class="rounded-2xl shadow-lg mx-auto mb-6 sm:mb-8 w-full sm:w-3/4">
-      <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Smarter Solar Efficiency, Powered by AI</h2>
-      <p class="text-base sm:text-lg mb-5 sm:mb-6">Harness maximum sunlight with precision tracking technology designed for sustainability and performance.</p>
-      <a href="#roi" class="btn-primary px-4 sm:px-6 py-2 sm:py-3 rounded-lg inline-block font-semibold text-sm sm:text-base">Calculate Your ROI</a>
-    </section>
-
-    <section id="roi" class="mt-12 sm:mt-16">
-      <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-center">ROI Calculator</h3>
-      <div class="w-full max-w-md mx-auto">
-        <canvas id="roiChart"></canvas>
-      </div>
-    </section>
-
-    <section id="team" class="mt-12 sm:mt-16">
-      <h3 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Our Team</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center">
-        <div class="p-5 sm:p-6 bg-white rounded-2xl shadow-md">
-          <div class="text-3xl sm:text-4xl font-bold text-[#D3ED88] mb-1 sm:mb-2">R</div>
-          <h4 class="font-semibold text-base sm:text-lg">Ridaan Sharma</h4>
-          <p class="text-xs sm:text-sm text-gray-600">CEO</p>
-        </div>
-        <div class="p-5 sm:p-6 bg-white rounded-2xl shadow-md">
-          <div class="text-3xl sm:text-4xl font-bold text-[#D3ED88] mb-1 sm:mb-2">P</div>
-          <h4 class="font-semibold text-base sm:text-lg">Pratyush Khare</h4>
-          <p class="text-xs sm:text-sm text-gray-600">CFO</p>
-        </div>
-        <div class="p-5 sm:p-6 bg-white rounded-2xl shadow-md">
-          <div class="text-3xl sm:text-4xl font-bold text-[#D3ED88] mb-1 sm:mb-2">U</div>
-          <h4 class="font-semibold text-base sm:text-lg">Ujjwal Pogra</h4>
-          <p class="text-xs sm:text-sm text-gray-600">CTO</p>
-        </div>
-        <div class="p-5 sm:p-6 bg-white rounded-2xl shadow-md">
-          <div class="text-3xl sm:text-4xl font-bold text-[#D3ED88] mb-1 sm:mb-2">G</div>
-          <h4 class="font-semibold text-base sm:text-lg">Geet Malviya</h4>
-          <p class="text-xs sm:text-sm text-gray-600">CM&SO</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="text-center py-5 sm:py-6 mt-12 sm:mt-16 bg-white bg-opacity-60 backdrop-blur-md">
-    <p class="text-gray-700 text-sm sm:text-base">© 2025 SolarTrac Innovations. All rights reserved.</p>
-  </footer>
-
-  <script>
-    // Responsive ROI Chart
-    const ctx = document.getElementById('roiChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['1 Year', '2 Years', '3 Years', '4 Years', '5 Years'],
-        datasets: [{
-          label: 'Estimated ROI (%)',
-          data: [10, 25, 40, 60, 80],
-          backgroundColor: '#D3ED88',
-          borderColor: '#A3C459',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true,
-            grid: { color: 'rgba(0,0,0,0.05)' },
-            ticks: { color: '#333', font: { size: 10 } }
-          },
-          x: {
-            ticks: { color: '#333', font: { size: 10 } }
-          }
-        },
-        plugins: {
-          legend: { labels: { color: '#333', font: { size: 10 } } }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarTrac Innovations | Solar-Hybrid Tractor Retrofit Kits</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #384C21; /* Deep Olive Green - for text and major elements */
+            --color-accent: #8CC63F; /* Bright, Fresh Green - for buttons and highlights */
+            --color-light: #F7FBF4;  /* Light Off-White/Green tint */
         }
-      }
-    });
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-primary);
+            background-color: #ffffff;
+        }
+        .text-primary { color: var(--color-primary); }
+        .bg-primary { background-color: var(--color-primary); }
+        .text-accent { color: var(--color-accent); }
+        .bg-accent { background-color: var(--color-accent); }
+        .btn-accent {
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+            transition: all 0.2s;
+        }
+        .btn-accent:hover {
+            background-color: #72a334; /* Slightly darker hover */
+            box-shadow: 0 4px 6px rgba(56, 76, 33, 0.3);
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
 
-    // Language Toggle
-    const langToggle = document.getElementById('langToggle');
-    let isHindi = false;
-    langToggle.addEventListener('click', () => {
-      isHindi = !isHindi;
-      document.body.lang = isHindi ? 'hi' : 'en';
-      langToggle.textContent = isHindi ? 'English' : 'हिन्दी';
-      document.querySelector('h2').textContent = isHindi ? 'एआई द्वारा संचालित स्मार्ट सोलर दक्षता' : 'Smarter Solar Efficiency, Powered by AI';
-      document.querySelector('p').textContent = isHindi ? 'सस्टेनेबिलिटी और परफॉर्मेंस के लिए डिज़ाइन की गई सटीक ट्रैकिंग तकनीक के साथ अधिकतम धूप प्राप्त करें।' : 'Harness maximum sunlight with precision tracking technology designed for sustainability and performance.';
-      document.querySelector('a').textContent = isHindi ? 'अपना ROI कैलकुलेट करें' : 'Calculate Your ROI';
-      document.querySelector('#team h3').textContent = isHindi ? 'हमारी टीम' : 'Our Team';
-    });
-  </script>
+    <!-- Header & Navigation -->
+    <header class="shadow-md sticky top-0 z-10 bg-white">
+        <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <!-- Logo Area -->
+            <div class="flex items-center space-x-2">
+                <img src="logo.png" alt="SolarTrac Innovations Logo" class="h-10 w-auto">
+            </div>
+            
+            <!-- Desktop Nav & Language Toggle -->
+            <div class="flex items-center space-x-4 md:space-x-8 text-sm font-semibold">
+                <!-- Language Toggle Button -->
+                <button id="lang-toggle-btn" class="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-md hover:bg-green-700 transition">
+                    HI / EN
+                </button>
+
+                <!-- Desktop Nav Links (Hidden on Mobile) -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="hover:text-accent transition duration-150" data-lang-key="nav_features">Features</a>
+                    <a href="#roi" class="hover:text-accent transition duration-150" data-lang-key="nav_savings">Savings & ROI</a>
+                    <a href="#products" class="hover:text-accent transition duration-150" data-lang-key="nav_products">Products</a>
+                    <a href="#contact" class="btn-accent px-4 py-2 rounded-lg text-sm font-bold border border-transparent hover:border-primary" data-lang-key="nav_contact">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button (Visible on Mobile) -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-primary focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-primary w-full shadow-lg">
+            <a href="#features" class="block py-2 px-4 text-white hover:bg-green-700" data-lang-key="nav_features">Features</a>
+            <a href="#roi" class="block py-2 px-4 text-white hover:bg-green-700" data-lang-key="nav_savings">Savings & ROI</a>
+            <a href="#products" class="block py-2 px-4 text-white hover:bg-green-700" data-lang-key="nav_products">Products</a>
+            <a href="#contact" class="block py-2 px-4 text-accent font-bold hover:bg-green-700" data-lang-key="nav_contact">Contact Us</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Hero Section -->
+        <section class="bg-light pt-16 pb-16 md:pt-24 md:pb-24">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-10">
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-primary" data-lang-key="hero_h1">
+                        Your Farm, Your Power.
+                    </h1>
+                    <p class="text-xl sm:text-2xl font-medium mb-6" data-lang-key="hero_subtitle">
+                        Convert your diesel tractor to a <strong class="font-bold">Solar-Hybrid powerhouse</strong> and achieve energy independence.
+                    </p>
+                    <p class="text-3xl font-bold mb-8 text-accent">
+                        <span data-lang-key="hero_savings_prefix">Start saving up to</span> <strong>₹1.13 Lakh</strong> <span data-lang-key="hero_savings_suffix">annually!</span>
+                    </p>
+                    <a href="#contact-form" class="btn-accent px-8 py-4 rounded-xl text-lg font-bold shadow-lg hover:shadow-xl inline-block" data-lang-key="hero_button">
+                        Request a Demo & Price
+                    </a>
+                </div>
+                <!-- Tractor Image -->
+                <div class="md:w-1/2">
+                    <!-- Using the specified image name -->
+                    <img src="solartracv.jpg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/8CC63F/384C21?text=SolarTrac+Hybrid+Tractor+Image'" alt="SolarTrac Hybrid Tractor Image" class="w-full h-auto rounded-xl shadow-2xl">
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. The Problem: Why SolarTrac? -->
+        <section class="py-16 bg-white" id="problem">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12" data-lang-key="problem_h2">The Burden of Diesel: High Cost, High Risk</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1: Financial Burden -->
+                    <div class="bg-light p-6 rounded-xl shadow-lg border-t-4 border-accent">
+                        <i class="fas fa-indian-rupee-sign text-4xl text-accent mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3" data-lang-key="problem_c1_title">Crushing Costs</h3>
+                        <p data-lang-key="problem_c1_text">Diesel and maintenance costs average <strong class="font-bold">₹1.5 Lakh per year</strong>, eroding 25-30% of your total operating expenses.</p>
+                    </div>
+                    <!-- Card 2: Downtime Risk -->
+                    <div class="bg-light p-6 rounded-xl shadow-lg border-t-4 border-accent">
+                        <i class="fas fa-gas-pump text-4xl text-accent mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3" data-lang-key="problem_c2_title">Fuel Price Volatility</h3>
+                        <p data-lang-key="problem_c2_text">Rising and unpredictable fuel prices make planning difficult and jeopardize long-term farm profitability.</p>
+                    </div>
+                    <!-- Card 3: Environmental Impact -->
+                    <div class="bg-light p-6 rounded-xl shadow-lg border-t-4 border-accent">
+                        <i class="fas fa-cloud-sun text-4xl text-accent mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3" data-lang-key="problem_c3_title">Noise & Pollution</h3>
+                        <p data-lang-key="problem_c3_text">Traditional tractors emit harmful CO₂ and operate above safe noise levels (90+ dB), impacting health and air quality.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3. Features & Solution Section -->
+        <section class="py-16 bg-primary text-white" id="features">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-accent" data-lang-key="features_h2">Introducing the SolarTrac Retrofit Kit</h2>
+                <p class="text-center text-xl mb-12 max-w-3xl mx-auto" data-lang-key="features_subtitle">
+                    Our kit converts your existing diesel tractor into a high-efficiency <strong class="font-bold">Solar-Hybrid machine</strong>—saving you money without forcing you to buy a new tractor.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-primary">
+                    <!-- Feature 1: Hybrid Safety Net -->
+                    <div class="bg-white p-6 rounded-xl shadow-xl flex items-start space-x-4">
+                        <i class="fas fa-shield-alt text-3xl text-accent mt-1"></i>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1" data-lang-key="feature1_title">Hybrid Safety Net</h3>
+                            <p class="text-gray-600" data-lang-key="feature1_text">Electric power with diesel backup for <strong class="font-bold">zero downtime</strong>. Never worry about a dead battery in the middle of a field.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 2: Dual Charging -->
+                    <div class="bg-white p-6 rounded-xl shadow-xl flex items-start space-x-4">
+                        <i class="fas fa-solar-panel text-3xl text-accent mt-1"></i>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1" data-lang-key="feature2_title">Dual Charging Flexibility</h3>
+                            <p class="text-gray-600" data-lang-key="feature2_text">Charge via the onboard <strong class="font-bold">Solar Panels</strong> or use the AC charging port for fast charging when needed.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 3: Energy Hub (V2L) -->
+                    <div class="bg-white p-6 rounded-xl shadow-xl flex items-start space-x-4">
+                        <i class="fas fa-bolt text-3xl text-accent mt-1"></i>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1" data-lang-key="feature3_title">Vehicle-to-Load (V2L) Hub</h3>
+                            <p class="text-gray-600" data-lang-key="feature3_text">Use the 1kVA+ AC outlet to power tools, lights, or even your home during blackouts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ROI Section (The biggest client focus) -->
+        <section class="py-16 bg-light" id="roi">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4" data-lang-key="roi_h2">The Undeniable Farmer ROI</h2>
+                <p class="text-xl mb-10 text-gray-600" data-lang-key="roi_subtitle">Switching to SolarTrac is not an expense—it’s a powerful investment in your future.</p>
+
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl inline-block max-w-4xl w-full border border-accent">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="md:border-r md:border-primary/20 p-4">
+                            <p class="text-5xl md:text-6xl font-extrabold text-accent">₹1.13 L</p>
+                            <p class="text-lg font-semibold mt-2" data-lang-key="roi_c1_title">Annual Savings Per Tractor</p>
+                        </div>
+                        <div class="md:border-r md:border-primary/20 p-4">
+                            <p class="text-5xl md:text-6xl font-extrabold text-accent">26</p>
+                            <p class="text-lg font-semibold mt-2" data-lang-key="roi_c2_title">Month Payback Period</p>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-5xl md:text-6xl font-extrabold text-accent">90%</p>
+                            <p class="text-lg font-semibold mt-2" data-lang-key="roi_c3_title">Reduction in Fuel Dependency</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#products" class="mt-12 btn-accent px-8 py-3 rounded-xl text-lg font-bold inline-block shadow-lg hover:shadow-xl" data-lang-key="roi_button">
+                    See Which Kit Fits Your Needs
+                </a>
+            </div>
+        </section>
+
+        <!-- 5. Products Section -->
+        <section class="py-16 bg-white" id="products">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12" data-lang-key="products_h2">Choose the Right Kit for Your Farm</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                    <!-- Product Card 1: Lite -->
+                    <div class="bg-white border-4 border-accent/50 p-6 rounded-2xl shadow-2xl transition hover:shadow-primary/50 duration-300">
+                        <div class="bg-accent/20 rounded-t-xl p-4 -mx-6 -mt-6 mb-4">
+                             <h3 class="text-2xl font-extrabold text-center text-primary" data-lang-key="product_lite_title">SolarTrac Lite</h3>
+                        </div>
+                        <p class="text-center text-5xl font-bold text-accent mb-4">15-30 HP</p>
+                        <p class="text-lg text-center mb-4 text-gray-700" data-lang-key="product_lite_subtitle">The affordable hybrid conversion for smaller farms and orchards.</p>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li><i class="fas fa-check-circle text-accent mr-2"></i> 6 kWh LFP Battery</li>
+                            <li><i class="fas fa-check-circle text-accent mr-2"></i> 7 kW Peak Motor</li>
+                            <li><i class="fas fa-check-circle text-accent mr-2"></i> 1.0 kW Foldable Solar Array</li>
+                            <li><i class="fas fa-check-circle text-accent mr-2"></i> 1kVA V2L Outlet (Energy Hub)</li>
+                        </ul>
+                        <div class="mt-6 text-center">
+                            <a href="#contact-form" class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition" data-lang-key="product_lite_button">
+                                Get Lite Details
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2: Standard (Flagship) -->
+                    <div class="bg-white border-4 border-accent p-6 rounded-2xl shadow-2xl ring-4 ring-primary transition hover:shadow-primary/50 duration-300 transform scale-105">
+                        <div class="bg-accent rounded-t-xl p-4 -mx-6 -mt-6 mb-4">
+                             <h3 class="text-2xl font-extrabold text-center text-primary" data-lang-key="product_standard_title">SolarTrac Standard <span class="text-xs align-top bg-primary/20 text-primary py-1 px-2 rounded-full ml-2" data-lang-key="product_flagship_badge">FLAGSHIP</span></h3>
+                        </div>
+                        <p class="text-center text-5xl font-bold text-accent mb-4">31-50 HP</p>
+                        <p class="text-lg text-center mb-4 font-semibold" data-lang-key="product_standard_subtitle">Our flagship workhorse kit for core farming operations. <strong class="font-bold">Best Value.</strong></p>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li><i class="fas fa-check-circle text-accent mr-2"></i> <strong class="font-bold">9 kWh LFP Battery</strong> (Enhanced Range)</li>
+                            <li><i class="fas fa-check-circle text-accent mr-2"></i> <strong class="font-bold">15 kW Peak Motor</strong> (High Power)</li>
+                            <li><i class="fas fa-check-circle text-accent mr-2"></i> 1.5 kW Foldable Solar Array</li>
+                            <li><i class="fas fa-check-circle text-accent mr-2"></i> 1.5kVA V2L Outlet (Energy Hub)</li>
+                        </ul>
+                        <div class="mt-6 text-center">
+                            <a href="#contact-form" class="btn-accent px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl" data-lang-key="product_standard_button">
+                                Request Standard Quote
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3: Plus -->
+                    <div class="bg-white border-4 border-accent/50 p-6 rounded-2xl shadow-2xl transition hover:shadow-primary/50 duration-300">
+                        <div class="bg-accent/20 rounded-t-xl p-4 -mx-6 -mt-6 mb-4">
+                             <h3 class="text-2xl font-extrabold text-center text-primary" data-lang-key="product_plus_title">SolarTrac Plus</h3>
+                        </div>
+                        <p class="text-center text-5xl font-bold text-accent mb-4">50+ HP</p>
+                        <p class="text-lg text-center mb-4 text-gray-700" data-lang-key="product_plus_subtitle">High-torque premium kit for large-scale operations (Year 3 Launch).</p>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li><i class="fas fa-hourglass-half text-gray-400 mr-2"></i> 15 kWh LFP Battery (Future)</li>
+                            <li><i class="fas fa-hourglass-half text-gray-400 mr-2"></i> 22 kW Peak Motor (Future)</li>
+                            <li><i class="fas fa-hourglass-half text-gray-400 mr-2"></i> 2.0 kW Foldable Solar Array</li>
+                            <li><i class="fas fa-hourglass-half text-gray-400 mr-2"></i> 2kVA V2L Outlet (Energy Hub)</li>
+                        </ul>
+                        <div class="mt-6 text-center">
+                            <button class="bg-gray-300 text-gray-600 px-6 py-3 rounded-xl font-semibold cursor-not-allowed" data-lang-key="product_plus_button">
+                                Coming Soon
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. National Alignment & Trust Section -->
+        <section class="py-16 bg-primary text-white">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-accent" data-lang-key="alignment_h2">Aligned with National Progress</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-primary">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-2 flex items-center"><i class="fas fa-handshake text-accent mr-3"></i> <span data-lang-key="alignment_c1_title">Doubling Farmer Income</span></h3>
+                        <p class="text-gray-700" data-lang-key="alignment_c1_text">Our kit directly contributes to this goal by adding over <strong class="font-bold">₹1.13 Lakh</strong> in annual profit per farmer through massive fuel savings.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-2 flex items-center"><i class="fas fa-sun text-accent mr-3"></i> <span data-lang-key="alignment_c2_title">PM-KUSUM Scheme Support</span></h3>
+                        <p class="text-gray-700" data-lang-key="alignment_c2_text">We support the national push for solar-powered agriculture and sustainable farming practices.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-2 flex items-center"><i class="fas fa-tools text-accent mr-3"></i> <span data-lang-key="alignment_c3_title">Engineered & Certified Solution</span></h3>
+                        <p class="text-gray-700" data-lang-key="alignment_c3_text">Unlike local retrofitters, we offer a warranty, safe LFP batteries, and a professionally engineered system for total peace of mind.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-2 flex items-center"><i class="fas fa-credit-card text-accent mr-3"></i> <span data-lang-key="alignment_c4_title">Financing Available</span></h3>
+                        <p class="text-gray-700" data-lang-key="alignment_c4_text">We partner with local agri-banks to pre-approve farmer loans, removing the upfront cost barrier.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer / Contact Section -->
+    <footer class="bg-light py-16" id="contact">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+            
+            <!-- Contact Form Area -->
+            <div id="contact-form" class="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-2xl border-4 border-accent/70">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4" data-lang-key="footer_h2">Ready to Modernize Your Farm?</h2>
+                <p class="text-lg mb-8 max-w-2xl mx-auto text-gray-700" data-lang-key="footer_subtitle">
+                    Fill out the form below for a demo request or a detailed quote.
+                </p>
+
+                <!-- Formspree Integration -->
+                <form action="https://formspree.io/f/myzblpby" method="POST" class="space-y-4 text-left">
+                    
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-primary mb-1" data-lang-key="form_name_label">Your Name</label>
+                        <input type="text" name="name" id="name" required 
+                               class="w-full p-3 border-2 border-primary/20 rounded-lg focus:ring-accent focus:border-accent"
+                               data-lang-placeholder-key="form_name_placeholder" placeholder="Ram Lal">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-primary mb-1" data-lang-key="form_email_label">Email (Optional, for detailed quote)</label>
+                        <input type="email" name="_replyto" id="email" 
+                               class="w-full p-3 border-2 border-primary/20 rounded-lg focus:ring-accent focus:border-accent"
+                               data-lang-placeholder-key="form_email_placeholder" placeholder="you@example.com">
+                    </div>
+
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-primary mb-1" data-lang-key="form_phone_label">Phone Number (Mandatory)</label>
+                        <input type="tel" name="phone" id="phone" required 
+                               class="w-full p-3 border-2 border-primary/20 rounded-lg focus:ring-accent focus:border-accent"
+                               data-lang-placeholder-key="form_phone_placeholder" placeholder="+91 98765 43210">
+                    </div>
+
+                    <div>
+                        <label for="kit" class="block text-sm font-medium text-primary mb-1" data-lang-key="form_kit_label">Interested Kit</label>
+                        <select name="kit_interest" id="kit" required 
+                                class="w-full p-3 border-2 border-primary/20 rounded-lg focus:ring-accent focus:border-accent appearance-none bg-white">
+                            <option value="" disabled selected data-lang-key="form_kit_default">Select a Kit HP Range</option>
+                            <option value="Lite (15-30 HP)" data-lang-key="product_lite_title">SolarTrac Lite (15-30 HP)</option>
+                            <option value="Standard (31-50 HP)" data-lang-key="product_standard_title">SolarTrac Standard (31-50 HP)</option>
+                            <option value="Plus (50+ HP)" data-lang-key="product_plus_title_select">SolarTrac Plus (50+ HP) - Waitlist</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" class="bg-primary text-white w-full px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-primary/90 transition" data-lang-key="form_submit_button">
+                            Request Quote & Demo
+                        </button>
+                        <div class="mt-4 text-xs text-gray-500 text-center" data-lang-key="form_disclaimer">
+                            We will contact you within 24 hours.
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Direct Contact Links -->
+            <div class="mt-12 flex flex-col md:flex-row justify-center items-center gap-6">
+                <a href="tel:+919328996205" class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition w-full md:w-auto">
+                    <i class="fas fa-phone-alt mr-2"></i> <span data-lang-key="footer_call_us">Call Us:</span> +91 9328996205
+                </a>
+                <a href="mailto:SOLARTRACINNOVATIONS@GMAIL.COM" class="btn-accent px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl w-full md:w-auto" data-lang-key="footer_email_us">
+                    <i class="fas fa-envelope mr-2"></i> Email Us Directly
+                </a>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-primary/20 text-sm text-gray-600">
+                <p>&copy; 2024 SolarTrac Innovations. All rights reserved.</p>
+                <p class="mt-1">Indore, Madhya Pradesh</p>
+                <p class="text-xs mt-3">Team: Ridaan Sharma (CEO), Pratyush Khare (CFO), Ujjwal Pogra (CTO), Geet Malviya (CM&SO)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language Data
+        const LANG_DATA = {
+            'en': {
+                'nav_features': 'Features',
+                'nav_savings': 'Savings & ROI',
+                'nav_products': 'Products',
+                'nav_contact': 'Contact Us',
+                'hero_h1': 'Your Farm, Your Power.',
+                'hero_subtitle': 'Convert your diesel tractor to a <strong class="font-bold">Solar-Hybrid powerhouse</strong> and achieve energy independence.',
+                'hero_savings_prefix': 'Start saving up to',
+                'hero_savings_suffix': 'annually!',
+                'hero_button': 'Request a Demo & Price',
+                'problem_h2': 'The Burden of Diesel: High Cost, High Risk',
+                'problem_c1_title': 'Crushing Costs',
+                'problem_c1_text': 'Diesel and maintenance costs average <strong class="font-bold">₹1.5 Lakh per year</strong>, eroding 25-30% of your total operating expenses.',
+                'problem_c2_title': 'Fuel Price Volatility',
+                'problem_c2_text': 'Rising and unpredictable fuel prices make planning difficult and jeopardize long-term farm profitability.',
+                'problem_c3_title': 'Noise & Pollution',
+                'problem_c3_text': 'Traditional tractors emit harmful CO₂ and operate above safe noise levels (90+ dB), impacting health and air quality.',
+                'features_h2': 'Introducing the SolarTrac Retrofit Kit',
+                'features_subtitle': 'Our kit converts your existing diesel tractor into a high-efficiency <strong class="font-bold">Solar-Hybrid machine</strong>—saving you money without forcing you to buy a new tractor.',
+                'feature1_title': 'Hybrid Safety Net',
+                'feature1_text': 'Electric power with diesel backup for <strong class="font-bold">zero downtime</strong>. Never worry about a dead battery in the middle of a field.',
+                'feature2_title': 'Dual Charging Flexibility',
+                'feature2_text': 'Charge via the onboard <strong class="font-bold">Solar Panels</strong> or use the AC charging port for fast charging when needed.',
+                'feature3_title': 'Vehicle-to-Load (V2L) Hub',
+                'feature3_text': 'Use the 1kVA+ AC outlet to power tools, lights, or even your home during blackouts.',
+                'roi_h2': 'The Undeniable Farmer ROI',
+                'roi_subtitle': 'Switching to SolarTrac is not an expense—it’s a powerful investment in your future.',
+                'roi_c1_title': 'Annual Savings Per Tractor',
+                'roi_c2_title': 'Month Payback Period',
+                'roi_c3_title': 'Reduction in Fuel Dependency',
+                'roi_button': 'See Which Kit Fits Your Needs',
+                'products_h2': 'Choose the Right Kit for Your Farm',
+                'product_lite_title': 'SolarTrac Lite',
+                'product_lite_subtitle': 'The affordable hybrid conversion for smaller farms and orchards.',
+                'product_lite_button': 'Get Lite Details',
+                'product_standard_title': 'SolarTrac Standard',
+                'product_flagship_badge': 'FLAGSHIP',
+                'product_standard_subtitle': 'Our flagship workhorse kit for core farming operations. <strong class="font-bold">Best Value.</strong>',
+                'product_standard_button': 'Request Standard Quote',
+                'product_plus_title': 'SolarTrac Plus',
+                'product_plus_title_select': 'SolarTrac Plus',
+                'product_plus_subtitle': 'High-torque premium kit for large-scale operations (Year 3 Launch).',
+                'product_plus_button': 'Coming Soon',
+                'alignment_h2': 'Aligned with National Progress',
+                'alignment_c1_title': 'Doubling Farmer Income',
+                'alignment_c1_text': 'Our kit directly contributes to this goal by adding over <strong class="font-bold">₹1.13 Lakh</strong> in annual profit per farmer through massive fuel savings.',
+                'alignment_c2_title': 'PM-KUSUM Scheme Support',
+                'alignment_c2_text': 'We support the national push for solar-powered agriculture and sustainable farming practices.',
+                'alignment_c3_title': 'Engineered & Certified Solution',
+                'alignment_c3_text': 'Unlike local retrofitters, we offer a warranty, safe LFP batteries, and a professionally engineered system for total peace of mind.',
+                'alignment_c4_title': 'Financing Available',
+                'alignment_c4_text': 'We partner with local agri-banks to pre-approve farmer loans, removing the upfront cost barrier.',
+                'footer_h2': 'Request a Quote or Demo',
+                'footer_subtitle': 'Fill out the form below for a demo request or a detailed quote.',
+                'footer_call_us': 'Call Us:',
+                'footer_email_us': 'Email Us Directly',
+                'form_name_label': 'Your Name',
+                'form_name_placeholder': 'Ram Lal',
+                'form_email_label': 'Email (Optional, for detailed quote)',
+                'form_email_placeholder': 'you@example.com',
+                'form_phone_label': 'Phone Number (Mandatory)',
+                'form_phone_placeholder': '+91 98765 43210',
+                'form_kit_label': 'Interested Kit',
+                'form_kit_default': 'Select a Kit HP Range',
+                'form_submit_button': 'Request Quote & Demo',
+                'form_disclaimer': 'We will contact you within 24 hours.',
+            },
+            'hi': {
+                'nav_features': 'विशेषताएं',
+                'nav_savings': 'बचत और ROI',
+                'nav_products': 'उत्पाद',
+                'nav_contact': 'हमसे संपर्क करें',
+                'hero_h1': 'आपका खेत, आपकी शक्ति।',
+                'hero_subtitle': 'अपने डीज़ल ट्रैक्टर को <strong class="font-bold">सोलर-हाइब्रिड पावरहाउस</strong> में बदलें और ऊर्जा में आत्मनिर्भर बनें।',
+                'hero_savings_prefix': 'हर साल',
+                'hero_savings_suffix': 'तक की बचत शुरू करें!',
+                'hero_button': 'डेमो और कीमत के लिए अनुरोध करें',
+                'problem_h2': 'डीज़ल का बोझ: ज़्यादा लागत, ज़्यादा जोखिम',
+                'problem_c1_title': 'भारी लागत',
+                'problem_c1_text': 'डीज़ल और रखरखाव की लागत औसतन <strong class="font-bold">₹1.5 लाख प्रति वर्ष</strong> है, जो आपके कुल परिचालन खर्च का 25-30% कम कर देती है।',
+                'problem_c2_title': 'ईंधन मूल्य में अस्थिरता',
+                'problem_c2_text': 'बढ़ती और अप्रत्याशित ईंधन कीमतें योजना बनाना कठिन बनाती हैं और दीर्घकालिक कृषि लाभ को खतरे में डालती हैं।',
+                'problem_c3_title': 'शोर और प्रदूषण',
+                'problem_c3_text': 'पारंपरिक ट्रैक्टर हानिकारक CO₂ उत्सर्जित करते हैं और सुरक्षित शोर स्तर (90+ dB) से ऊपर चलते हैं, जिससे स्वास्थ्य और वायु गुणवत्ता प्रभावित होती है।',
+                'features_h2': 'पेश है सोलरट्रैक रेट्रोफिट किट',
+                'features_subtitle': 'हमारी किट आपके मौजूदा डीज़ल ट्रैक्टर को एक उच्च-दक्षता वाली <strong class="font-bold">सोलर-हाइब्रिड मशीन</strong> में बदलती है—जिससे आपको नया ट्रैक्टर खरीदने के लिए मजबूर हुए बिना पैसा बचता है।',
+                'feature1_title': 'हाइब्रिड सुरक्षा जाल',
+                'feature1_text': '<strong class="font-bold">ज़ीरो डाउनटाइम</strong> के लिए डीज़ल बैकअप के साथ इलेक्ट्रिक पावर। खेत के बीच में बैटरी ख़त्म होने की चिंता कभी न करें।',
+                'feature2_title': 'दोहरी चार्जिंग सुविधा',
+                'feature2_text': 'ऑनबोर्ड <strong class="font-bold">सोलर पैनलों</strong> के माध्यम से चार्ज करें या जरूरत पड़ने पर तेजी से चार्ज करने के लिए AC चार्जिंग पोर्ट का उपयोग करें।',
+                'feature3_title': 'V2L (टूल को पावर) हब',
+                'feature3_text': 'बिजली कटौती के दौरान उपकरण, लाइट या अपने घर को भी बिजली देने के लिए 1kVA+ AC आउटलेट का उपयोग करें।',
+                'roi_h2': 'किसान के लिए निर्विवाद ROI',
+                'roi_subtitle': 'सोलरट्रैक पर स्विच करना कोई खर्च नहीं है—यह आपके भविष्य में एक शक्तिशाली निवेश है।',
+                'roi_c1_title': 'प्रति ट्रैक्टर वार्षिक बचत',
+                'roi_c2_title': 'महीने का भुगतान अवधि',
+                'roi_c3_title': 'ईंधन निर्भरता में कमी',
+                'roi_button': 'देखें कि कौन सी किट आपकी ज़रूरतों को पूरा करती है',
+                'products_h2': 'अपने खेत के लिए सही किट चुनें',
+                'product_lite_title': 'सोलरट्रैक लाइट',
+                'product_lite_subtitle': 'छोटे खेतों और बागानों के लिए किफायती हाइब्रिड रूपांतरण।',
+                'product_lite_button': 'लाइट विवरण प्राप्त करें',
+                'product_standard_title': 'सोलरट्रैक स्टैंडर्ड',
+                'product_flagship_badge': 'मुख्य उत्पाद',
+                'product_standard_subtitle': 'मुख्य खेती के कार्यों के लिए हमारी मुख्य वर्कहॉर्स किट। <strong class="font-bold">सर्वश्रेष्ठ मूल्य।</strong>',
+                'product_standard_button': 'स्टैंडर्ड कोटेशन का अनुरोध करें',
+                'product_plus_title': 'सोलरट्रैक प्लस',
+                'product_plus_title_select': 'सोलरट्रैक प्लस',
+                'product_plus_subtitle': 'बड़े पैमाने के संचालन के लिए उच्च-टॉर्क प्रीमियम किट (वर्ष 3 लॉन्च)।',
+                'product_plus_button': 'जल्द आ रहा है',
+                'alignment_h2': 'राष्ट्रीय प्रगति के साथ संरेखित',
+                'alignment_c1_title': 'किसान की आय दोगुनी करना',
+                'alignment_c1_text': 'हमारी किट भारी ईंधन बचत के माध्यम से प्रति किसान वार्षिक लाभ में <strong class="font-bold">₹1.13 लाख</strong> से अधिक जोड़कर इस लक्ष्य में सीधे योगदान करती है।',
+                'alignment_c2_title': 'पीएम-कुसुम योजना समर्थन',
+                'alignment_c2_text': 'हम सौर-ऊर्जा संचालित कृषि और टिकाऊ खेती के तरीकों के लिए राष्ट्रीय प्रोत्साहन का समर्थन करते हैं।',
+                'alignment_c3_title': 'इंजीनियर्ड और प्रमाणित समाधान',
+                'alignment_c3_text': 'स्थानीय रेट्रोफिटर्स के विपरीत, हम पूर्ण मन की शांति के लिए वारंटी, सुरक्षित LFP बैटरी और एक पेशेवर रूप से इंजीनियर्ड सिस्टम प्रदान करते हैं।',
+                'alignment_c4_title': 'वित्तपोषण उपलब्ध है',
+                'alignment_c4_text': 'हम किसानों के ऋण को पूर्व-अनुमोदित करने के लिए स्थानीय कृषि-बैंकों के साथ साझेदारी करते हैं, जिससे अग्रिम लागत की बाधा दूर होती है।',
+                'footer_h2': 'कोटेशन या डेमो का अनुरोध करें',
+                'footer_subtitle': 'डेमो अनुरोध या विस्तृत कोटेशन के लिए नीचे दिए गए फॉर्म को भरें।',
+                'footer_call_us': 'हमें कॉल करें:',
+                'footer_email_us': 'हमें सीधे ईमेल करें',
+                'form_name_label': 'आपका नाम',
+                'form_name_placeholder': 'राम लाल',
+                'form_email_label': 'ईमेल (वैकल्पिक, विस्तृत कोटेशन के लिए)',
+                'form_email_placeholder': 'आप@उदाहरण.कॉम',
+                'form_phone_label': 'फ़ोन नंबर (अनिवार्य)',
+                'form_phone_placeholder': '+91 98765 43210',
+                'form_kit_label': 'इच्छुक किट',
+                'form_kit_default': 'किट HP रेंज चुनें',
+                'form_submit_button': 'कोटेशन और डेमो का अनुरोध करें',
+                'form_disclaimer': 'हम 24 घंटे के भीतर आपसे संपर्क करेंगे।',
+            }
+        };
+
+        let currentLang = 'en';
+
+        // Function to update all elements based on currentLang
+        function updateContent(lang) {
+            document.documentElement.lang = lang;
+            const elements = document.querySelectorAll('[data-lang-key]');
+            
+            elements.forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                const translation = LANG_DATA[lang][key];
+
+                if (translation) {
+                    // Use innerHTML to allow for bolding (<strong>) within the translated string
+                    el.innerHTML = translation; 
+                }
+            });
+
+            // Update placeholder attributes
+            const placeholderElements = document.querySelectorAll('[data-lang-placeholder-key]');
+            placeholderElements.forEach(el => {
+                const key = el.getAttribute('data-lang-placeholder-key');
+                const placeholderTranslation = LANG_DATA[lang][key];
+                if (placeholderTranslation) {
+                    el.setAttribute('placeholder', placeholderTranslation);
+                }
+            });
+
+
+            // Update the toggle button text
+            const toggleBtn = document.getElementById('lang-toggle-btn');
+            toggleBtn.textContent = lang === 'en' ? 'HI / EN' : 'EN / HI';
+        }
+
+        // Language Toggle Function
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            updateContent(currentLang);
+        }
+
+        // Event Listeners
+        document.getElementById('lang-toggle-btn').addEventListener('click', toggleLanguage);
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize content to English on load
+            updateContent(currentLang);
+        });
+
+        // Mobile Menu Toggle Script
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Close menu when a link is clicked (for better mobile UX)
+        document.getElementById('mobile-menu').querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+        
+        // Update product button links to point to the new form section
+        document.querySelectorAll('a[href="#contact"]').forEach(a => {
+            a.setAttribute('href', '#contact-form');
+        });
+    </script>
+
 </body>
 </html>
+
